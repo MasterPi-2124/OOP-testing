@@ -1,0 +1,6 @@
+ 
+Hi ae!
+chung ta se nghich cai file nay nhe. cac ban co 3 cong viec chinh:
+1. lay repo nay tu tren github.com va tao stage
+2. thay doi file nay: "Nguyen Van A da ngoi o day", luu lai va commit leen github
+3. xoa commit, undo commit
