@@ -1,0 +1,21 @@
+******************* CÔNG VIỆC *******************
+
+------------------- TÌM HIỂU -------------------
+- Đọc input (file text) 		- 1đ |
+- Xuất file ảnh 			- 2đ |=> 1ng
+
+- Xử lý đồ thị (thuật toán DFS/BFS) 	- 4đ  => 2ng
+
+- Hiển thị các bước duyệt trên đồ thị 	- 4đ  => 2ng
+
+- Xuất ra file exe 			- 3đ  => 1ng
+
+- Tổng					 14đ => 6ng
+
+==> 6 người, mỗi người khoảng 2-3đ
+
+------------------- TỔNG HỢP -------------------
+(Sau khi tìm hiểu, cả nhóm sẽ họp để tổng hợp kiến thức)
+- Hoàn thành biểu đồ UML
+
+------------------ TRIỂN KHAI ------------------
