@@ -42,10 +42,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-/**
- * ----------------- @author nguyenvanquan7826 -----------------
- * ---------------nguyenvanquan7826.wordpress.com --------------
- */
+
 public class MyFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 

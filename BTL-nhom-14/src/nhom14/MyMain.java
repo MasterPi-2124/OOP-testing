@@ -1,7 +1,22 @@
 package nhom14;
 
-public class MyMain {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class MyMain extends Application {
+	@Override
+	public void start(Stage stage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+		stage.setTitle("Graph Path Finder");
+		stage.setScene(new Scene(root, 1000, 500));
+		stage.show();
+	}
+
 	public static void main(String[] args) {
-		new MyFrame("Nhom 14");
+		//new MyFrame("Nhom 14");
+		launch(args);
 	}
 }
