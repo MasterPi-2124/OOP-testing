@@ -34,6 +34,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -68,13 +69,13 @@
             </HBox>
             <VBox VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="sidebar-option">
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toDraw" styleClass="sidebar-option">
                      <children>
                         <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" text="   Draw" textFill="WHITE" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Draw.png" />
+                                    <Image url="@../icon/Draw_Bold.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -89,11 +90,11 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="sidebar-option">
                      <children>
-                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" text="   Open" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <Label ellipsisString="" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" text="   Open" textFill="WHITE" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Open.png" />
+                                    <Image url="@../icon/Open_Bold.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -108,11 +109,11 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="sidebar-option">
                      <children>
-                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" text="   Save" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" text="   About" textFill="WHITE" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Save.png" />
+                                    <Image url="@../icon/Path.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -133,7 +134,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icon/Setting.png" />
+                              <Image url="@../icon/Settings_Bold.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -164,14 +165,13 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <VBox HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
                      <children>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toDraw" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="79.0" layoutX="51.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Draw.png" />
+                                    <Image url="@../icon/Draw_Light.png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="15.0" layoutY="127.0" text="Draw new Graph" textAlignment="CENTER" textFill="WHITE">
@@ -183,6 +183,13 @@
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
+                           <effect>
+                              <DropShadow height="50.0" radius="24.5" width="50.0">
+                                 <color>
+                                    <Color opacity="0.2068965584039688" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
                         </Pane>
                      </children>
                   </VBox>
@@ -192,7 +199,7 @@
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="79.0" layoutX="51.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Open.png" />
+                                    <Image url="@../icon/Open_Light.png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="22.0" layoutY="130.0" text="Open from files" textAlignment="CENTER" textFill="WHITE">
@@ -201,6 +208,13 @@
                                  </font>
                               </Label>
                            </children>
+                           <effect>
+                              <DropShadow height="50.0" radius="24.5" width="50.0">
+                                 <color>
+                                    <Color opacity="0.2068965584039688" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
                         </Pane>
                      </children>
                   </VBox>
@@ -210,7 +224,7 @@
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="79.0" layoutX="51.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Save.png" />
+                                    <Image url="@../icon/Lucky_Light.png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="22.0" layoutY="130.0" text="I'm feeling lucky" textAlignment="CENTER" textFill="WHITE">
@@ -219,10 +233,16 @@
                                  </font>
                               </Label>
                            </children>
+                           <effect>
+                              <DropShadow height="50.0" radius="24.5" width="50.0">
+                                 <color>
+                                    <Color opacity="0.2068965584039688" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
                         </Pane>
                      </children>
                   </VBox>
-                  <VBox HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
