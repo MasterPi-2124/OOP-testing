@@ -96,7 +96,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
 		}
 		if(drawsolution){
 			drawSolution(g2d);
-			drawsolution = false;
+			//drawsolution = false;
 		}
 	}
 
@@ -380,7 +380,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
 			data.getArrMyLine().get(i).drawLine(g2d,
 							data.getArrMyPoint().get(data.getArrMyLine().get(i).getIndexPointA()).getP(),
 							data.getArrMyPoint().get(data.getArrMyLine().get(i).getIndexPointB()).getP(),
-							colorCost, Color.GREEN, sizeLine, typeMap);
+							colorCost, Color.white, sizeLine, typeMap);
 		}
 
 		// draw point
@@ -542,6 +542,7 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
 		}
 	}
 	public void drawSolution(Graphics2D g2d){
+		resetGraph(g2d);
 		reDraw(g2d,true);
 		for(int i = 0; i < arrsolution1.size(); i++){
 			if(i != arrsolution1.size() - 1){
@@ -556,7 +557,6 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
 			}
 			data.getArrMyPoint().get(arrsolution1.get(i)).draw(g2d, arrsolution1.get(i), colorResult,Color.black);
 		}
-
 	}
 
 	public void write(String path) {

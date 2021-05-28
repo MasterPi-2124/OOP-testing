@@ -530,7 +530,7 @@ public class MyFrame extends JFrame implements ActionListener {
 			String path = fc.getSelectedFile().getPath();
 //			myDraw.write(path);
 			Rectangle rec = myDraw.getBounds();
-		    BufferedImage bufferedImage = new BufferedImage(myDraw.getWidth(), myDraw.getHeight(), BufferedImage.TYPE_INT_RGB);
+		    BufferedImage bufferedImage = new BufferedImage(rec.width, rec.height, BufferedImage.TYPE_INT_ARGB);
 		    myDraw.paint(bufferedImage.getGraphics());
 		    try {
 		        // Use the ImageIO API to write the bufferedImage to a temporary file
