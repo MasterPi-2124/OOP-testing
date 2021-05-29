@@ -59,6 +59,10 @@
     -fx-background-color: #353652;
 }
 
+.toggle-group {
+    -fx-background-color: #282b3c;
+}
+
 .toggle-button {
     -fx-background-color: #282b3c;
     -fx-background-radius: 10 10 10 10;
@@ -140,12 +144,14 @@
     -fx-background-color: #282b3c;
     -fx-background-radius: 10;
     -fx-mark-color: #282b3c;
-    -fx-text-fill: white;
-    -fx-text-alignment: center-left;
 }
 
 .choice-box:hover {
     -fx-background-color: #353652;
+}
+
+.choice-box .label {
+    -fx-text-fill: white;
 }
 
 .arrow {

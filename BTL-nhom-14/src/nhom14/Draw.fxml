@@ -39,7 +39,7 @@
          <children>
             <AnchorPane prefHeight="382.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Pane fx:id="displayPane" layoutX="28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#onGraphPressed" prefHeight="672.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane fx:id="displayPane" layoutX="-19.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#onGraphPressed" prefHeight="623.0" prefWidth="1200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="-19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="1.0" />
                   <VBox alignment="CENTER" layoutX="13.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="50.0" styleClass="popup-bar">
@@ -56,7 +56,7 @@
                            <children>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0">
                                  <children>
-                                    <ToggleButtonGroup maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rotate="90.0" selectionType="SINGLE" styleClass="toggle-group">
+                                    <ToggleButtonGroup maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rotate="90.0" selectionType="SINGLE">
                                        <toggles>
                                           <ToggleButton fx:id="addVertex" minWidth="50.0" mnemonicParsing="false" onAction="#toggleAddVertex" prefHeight="50.0" prefWidth="50.0">
                                              <graphic>
@@ -143,15 +143,16 @@
                               </DropShadow>
                            </effect>
                            <children>
-                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="150.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="160.0">
                                  <children>
-                                    <ChoiceBox fx:id="Algorithm" prefHeight="50.0" prefWidth="153.0" HBox.hgrow="ALWAYS">
+                                    <ChoiceBox fx:id="Algorithm" prefHeight="50.0" prefWidth="234.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
-                                       </cursor></ChoiceBox>
+                                       </cursor>
+                                    </ChoiceBox>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="50.0" prefWidth="129.0" HBox.hgrow="ALWAYS">
+                              <HBox prefHeight="50.0" prefWidth="81.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label alignment="CENTER" text="From" textAlignment="CENTER" textFill="WHITE">
                                        <font>
@@ -167,38 +168,56 @@
                                     <ChoiceBox fx:id="startPoint" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="83.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
-                                       </cursor></ChoiceBox>
+                                       </cursor>
+                                    </ChoiceBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0" styleClass="cards" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icon/Run.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
+                              <HBox alignment="CENTER" onMouseClicked="#run" prefHeight="50.0" prefWidth="0.0" styleClass="cards" HBox.hgrow="ALWAYS">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </HBox>
-                              <HBox alignment="CENTER" layoutX="272.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" styleClass="cards" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icon/RunbyStep.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ToggleButtonGroup minWidth="-Infinity" prefHeight="50.0" prefWidth="95.0" selectionType="SINGLE" styleClass="toggle-group" HBox.hgrow="ALWAYS">
+                                        <toggles>
+                                            <ToggleButton fx:id="run" onAction="#run" prefHeight="50.0" prefWidth="75.0">
+                                             <graphic>
+                                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icon/Run.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                            </ToggleButton>
+                                            <ToggleButton fx:id="pause" onAction="#pause" prefWidth="73.0">
+                                             <graphic>
+                                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icon/Pause.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                            </ToggleButton>
+                                        </toggles>
+                                    </ToggleButtonGroup>
                                  </children>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
                               </HBox>
-                              <HBox alignment="CENTER" layoutX="418.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" styleClass="cards" HBox.hgrow="ALWAYS">
+                              <HBox fx:id="stop" alignment="CENTER" layoutX="504.0" layoutY="10.0" onMouseClicked="#stop" prefHeight="100.0" prefWidth="5.0" styleClass="cards" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../icon/Stop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox fx:id="runStep" alignment="CENTER" layoutX="272.0" layoutY="10.0" onMouseClicked="#runStep" prefHeight="100.0" prefWidth="5.0" styleClass="cards" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/RunbyStep.png" />
                                        </image>
                                     </ImageView>
                                  </children>

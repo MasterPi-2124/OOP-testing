@@ -15,7 +15,7 @@ public class Graph {
     public Graph(Pane displayPane, int n) {
         this.displayPane = displayPane;
         vertexList = new ArrayList<>();
-        for(int i=0; i<n; i++) {
+        for(int i = 0; i < n; i++) {
             vertexList.add(new Vertex(i));
         }
         edgeList = new ArrayList<>() ;
@@ -41,12 +41,14 @@ public class Graph {
         return edgeList;
     }
 
+    //Create Edge
     void createEdge(Vertex u, Vertex v) {
         Edge line = new Edge(u.getLayoutX(), u.getLayoutY(), v.getLayoutX(), v.getLayoutY());
         line.x1Property().bind(u.GetShape().layoutXProperty());
         line.y1Property().bind(u.GetShape().layoutYProperty());
         line.x2Property().bind(v.GetShape().layoutXProperty());
         line.y2Property().bind(v.GetShape().layoutYProperty());
+
         line.setStart(u.getID());
         line.setEnd(v.getID());
         edgeList.add(line);
@@ -68,9 +70,9 @@ public class Graph {
         createEdge(t1,t2);
     }
 
+    //Create Vertex and add to Adjacent List
     public void addVertex(Vertex v) {
         vertexList.add(v);
-        System.out.println(toString());
     }
 
     public void addVertex(double x, double y) {
@@ -118,11 +120,6 @@ public class Graph {
     public void setDisable(boolean status) {
         displayPane.setDisable(status);
     }
-/*
-    public ArrayList<ArrayList<Integer>> getEdgeList() {
-        return this.EdgeList;
-    }
-*/
 
 	public void resetVerticesColor() {
 		for(Vertex v: vertexList) {

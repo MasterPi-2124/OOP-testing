@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class DFS_BFS {
+
     private Graph graph;
     private boolean visited[];
     private Timeline visualizer;
@@ -46,20 +47,32 @@ public class DFS_BFS {
         queue.add(startNode);
         queue.add(startNode);
         visited[startNode] = true;
-        graph.getVertex(startNode).GetShape().setTextFill(Color.ORANGE);
+        graph.getVertexList().get(startNode).GetShape().setTextFill(Color.ORANGE);
+        //graph.getVertexList().get(startNode).GetShape().set
 
-        KeyFrame bfsKeyFrame = new KeyFrame(Duration.seconds(1), e->{
+        KeyFrame bfsKeyFrame = new KeyFrame(Duration.seconds(1), e -> test(queue));
+        visualizer = new Timeline(bfsKeyFrame);
+        visualizer.setCycleCount(Animation.INDEFINITE);
+        visualizer.setAutoReverse(false);
+        visualizer.play();
+
+    }
+
+    public void test(Queue queue) {
+        {
             if(queue.size()>1){
-                //graph.getVertex(queue.poll()).GetShape().setStrokeWidth(0);
-                int currentNode = queue.peek();
-                graph.getVertex(currentNode).GetShape().setTextFill(Color.DEEPPINK);
+                graph.getVertex((Integer) queue.poll()).GetShape().setTextFill(Color.DARKORANGE);
+                int currentNode = (int) queue.peek();
+                graph.getVertex(currentNode).GetShape().setStyle("-fx-background-color: green");
                 //graph.getVertex(currentNode).getShape().setStrokeWidth(5);
 
+                System.out.println(graph.getAdjacentVertices(currentNode).size());
                 for(Vertex v: graph.getAdjacentVertices(currentNode)){
                     if(!visited[v.getID()]){
                         visited[v.getID()] = true;
                         queue.add(v.getID());
-                        v.getShape().setFill(Color.ORANGE);
+                        v.GetShape().setStyle("-fx-background-color: red");
+                        System.out.println("Set color successfully");
                     }
                 }
             }
@@ -68,12 +81,7 @@ public class DFS_BFS {
                 isRunning = false;
                 //graph.getVertex(queue.poll()).getShape().setStrokeWidth(0);
             }
-        });
-        visualizer = new Timeline(bfsKeyFrame);
-        visualizer.setCycleCount(Animation.INDEFINITE);
-        visualizer.setAutoReverse(false);
-        visualizer.play();
-
+        }
     }
 
     public void runDFS(int startNode){
@@ -101,13 +109,13 @@ public class DFS_BFS {
                     Vertex v = graph.getAdjacentVertices(currentNode).get(i);
                     if(!visited[v.getID()]){
                         stack.push(v.getID());
-                        graph.getVertex(currentNode).GetShape().setTextFill(Color.DARKORANGE);
+                        graph.getVertex(currentNode).GetShape().setStyle("-fx-background-color: red");
                         break;
                     }
                 }
                 if(i == graph.getAdjacentVertices(currentNode).size()){
                     int node = stack.pop();
-                    graph.getVertex(node).GetShape().setTextFill(Color.GREY);
+                    graph.getVertex(node).GetShape().setStyle("-fx-background-color: green");
                     //graph.getVertex(node).getShape().setStrokeWidth(0);
                 }
             }

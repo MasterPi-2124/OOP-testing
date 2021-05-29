@@ -39,7 +39,9 @@ public class DrawSceneController extends OutputStream implements Initializable {
     @FXML
     private ToggleButton addVertex,
                          addEdge,
-                         Movable;
+                         Movable,
+                         run,
+                         pause;
 
     @FXML
     private CheckBox isUndirected;
@@ -59,15 +61,14 @@ public class DrawSceneController extends OutputStream implements Initializable {
     @FXML
     private TextArea log;
 
-    private Graph  graph;
-    
-    DFS_BFS algo = new DFS_BFS(graph);
+    @FXML TextArea path;
 
+    private Graph graph;
+    private DFS_BFS algo;
     private boolean isHidden = false,
                     canAddVertex = false,
                     canAddEdge = false,
                     isMovable = false;
-    Edge edge;
     int id = 1;
     Vertex v1,v2;
 
@@ -215,8 +216,36 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     // Algorithm controller
-    public void run(MouseEvent event) {
-
+    public void run() {
+        if (Algorithm.getValue().equals("Breadth First Search")) {
+            if (startPoint.getValue() != null) {
+                System.out.println("Running BFS from point " + startPoint.getValue() + " ...\n");
+                try {
+                    run.setSelected(true);
+                    algo.runBFS(startPoint.getValue());
+                } catch (Exception e) {
+                    System.out.println("Running BFS failed: " + e.getMessage());
+                    run.setSelected(false);
+                }
+            } else if (startPoint.getValue() == null) {
+                System.out.println("Running BFS failed because no start point is chosen.");
+                run.setSelected(false);
+            }
+        } else if (Algorithm.getValue().equals("Depth First Search")) {
+            if (startPoint.getValue() != null) {
+                System.out.println("Running DFS from point " + startPoint.getValue() + " ...\n");
+                try {
+                    pause.setSelected(false);
+                    algo.runDFS(startPoint.getValue());
+                } catch (Exception e) {
+                    System.out.println("Running DFS failed: " + e.getMessage());
+                    run.setSelected(false);
+                }
+            } else if (startPoint.getValue() == null) {
+                System.out.println("Running DFS failed because no start point is chosen.");
+                run.setSelected(false);
+            }
+        }
     }
 
     public void runStep(MouseEvent event) {
@@ -244,8 +273,11 @@ public class DrawSceneController extends OutputStream implements Initializable {
         graph.addVertex(v);
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
+
         System.out.println("Point " + v.getID() + "(" + event.getX() + "; " + event.getY() + ") is created!");
         startPoint.getItems().add(v.getID());
+        algo = new DFS_BFS(graph);
+
         return v.GetShape();
     }
 
@@ -254,8 +286,11 @@ public class DrawSceneController extends OutputStream implements Initializable {
         graph.addVertex(v);
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
-        startPoint.getItems().add(v.getID());
+
         System.out.println("Point " + v.getID() + "(" + x + "; " + y + ") is created!");
+        startPoint.getItems().add(v.getID());
+        algo = new DFS_BFS(graph);
+
         return v.GetShape();
     }
 
@@ -278,6 +313,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                         graph.createEdge(v1, v2);
                         id = 1;
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is created!");
+                        algo = new DFS_BFS(graph);
                     } else {
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is already created!");
                     }
