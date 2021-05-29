@@ -8,7 +8,7 @@ public class Graph {
     // Attributes
     private Pane displayPane;
     private ArrayList<Vertex> vertexList;
-    private ArrayList<ArrayList<Integer>> EdgeList = new ArrayList<>();
+    //private ArrayList<ArrayList<Integer>> EdgeList = new ArrayList<>();
     private ArrayList<Edge> edgeList = new ArrayList<>();
 
     // constructor
@@ -18,7 +18,7 @@ public class Graph {
         for(int i=0; i<n; i++) {
             vertexList.add(new Vertex(i));
         }
-        EdgeList = new ArrayList<>() ;
+        edgeList = new ArrayList<>() ;
     }
 
     public Graph(Pane displayPane) {
@@ -51,7 +51,7 @@ public class Graph {
         //u.addAjacentVertex(v);
         ArrayList<Integer> e = new ArrayList<>();
         e.add(u.getID());
-        EdgeList.add(e);
+        //EdgeList.add(e);
         edgeList.add(line);
 
         displayPane.getChildren().add(line);
@@ -121,4 +121,10 @@ public class Graph {
         return this.EdgeList;
     }
 */
+
+	public void resetVertexsColor() {
+		for(Vertex v: vertexList) {
+			v.getShape();
+		}
+	}
 }

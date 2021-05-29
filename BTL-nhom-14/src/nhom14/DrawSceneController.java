@@ -42,6 +42,8 @@ public class DrawSceneController {
     private ChoiceBox vertex;
 
     private Graph  graph;
+    
+    DFS_BFS algo = new DFS_BFS(graph);
 
     private boolean isHidden = false,
                     canAddVertex = false,
