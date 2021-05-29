@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nhom14.ExportSceneController">
    <children>
       <VBox prefHeight="500.0" prefWidth="908.0" HBox.hgrow="ALWAYS">
          <children>
@@ -26,7 +25,7 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" layoutX="328.0" layoutY="85.0" prefHeight="40.0" prefWidth="324.0" text="Export to your favorite file types. We currently support only .PNG and .ABC file types." textAlignment="CENTER" textFill="#9a9a9a" wrapText="true">
+                  <Label alignment="CENTER" layoutX="328.0" layoutY="85.0" prefHeight="40.0" prefWidth="324.0" text="Export to your favorite file types. We currently support only .PNG and .GPH file types." textAlignment="CENTER" textFill="#9a9a9a" wrapText="true">
                      <font>
                         <Font name="Lato Regular" size="15.0" />
                      </font>
@@ -37,7 +36,7 @@
                <children>
                   <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0">
                      <children>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#savetoImage" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
                            <children>
                               <Label layoutX="38.0" layoutY="58.0" text="PNG" textFill="WHITE">
                                  <font>
@@ -53,9 +52,9 @@
                   </VBox>
                   <VBox alignment="CENTER" layoutX="287.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0">
                      <children>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#savetoGPH" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
                            <children>
-                              <Label layoutX="38.0" layoutY="58.0" text="ABC" textFill="WHITE">
+                              <Label layoutX="38.0" layoutY="58.0" text="GPH" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Regular" size="50.0" />
                                  </font>

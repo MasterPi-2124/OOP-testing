@@ -1,81 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nhom14.DrawSceneController">
    <children>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="800.0" styleClass="menu-bar">
-         <children>
-            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="80.0">
-               <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icon/Logo.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
-            <HBox prefHeight="50.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" styleClass="menubar-option">
-                     <children>
-                        <Label text="Files" textFill="WHITE">
-                           <font>
-                              <Font name="Lato Regular" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menubar-option">
-                     <children>
-                        <Label text="Transverse" textFill="WHITE">
-                           <font>
-                              <Font name="Lato Regular" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menubar-option">
-                     <children>
-                        <Label text="View" textFill="WHITE">
-                           <font>
-                              <Font name="Lato Regular" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menubar-option">
-                     <children>
-                        <Label text="Settings" textFill="WHITE">
-                           <font>
-                              <Font name="Lato Regular" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="menubar-option">
-                     <children>
-                        <Label text="Help" textFill="WHITE">
-                           <font>
-                              <Font name="Lato Regular" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="main-pane" stylesheets="@design.css" VBox.vgrow="ALWAYS">
          <effect>
             <InnerShadow choke="0.46" height="111.5" radius="27.375" width="0.0">
@@ -85,109 +36,307 @@
             </InnerShadow>
          </effect>
          <children>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="50.0" styleClass="popup-bar">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <effect>
-                  <DropShadow height="50.0" radius="24.5" width="50.0">
-                     <color>
-                        <Color opacity="0.27586206793785095" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
+            <AnchorPane prefHeight="382.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
+                  <Pane fx:id="displayPane" layoutX="28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#onGraphPressed" prefHeight="672.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox alignment="CENTER" layoutX="13.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/AddVertices.png" />
-                           </image>
-                        </ImageView>
+                        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="50.0" styleClass="popup-bar">
+                           <effect>
+                              <DropShadow height="50.0" radius="24.5" width="50.0">
+                                 <color>
+                                    <Color opacity="0.27586206793785095" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="50.0">
+                                 <children>
+                                    <ToggleButtonGroup maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" rotate="90.0" selectionType="SINGLE" styleClass="toggle-group">
+                                       <toggles>
+                                          <ToggleButton fx:id="addVertex" minWidth="50.0" mnemonicParsing="false" onAction="#toggleAddVertex" prefHeight="50.0" prefWidth="50.0">
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icon/AddVertices.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </ToggleButton>
+                                          <ToggleButton fx:id="addEdge" minWidth="50.0" mnemonicParsing="false" onAction="#toggleAddEdge" prefHeight="50.0" prefWidth="50.0">
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icon/AddEdge.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </ToggleButton>
+                                          <ToggleButton fx:id="Movable" minWidth="50.0" mnemonicParsing="false" onAction="#toggleMovable" prefHeight="50.0" prefWidth="50.0">
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icon/Move.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </ToggleButton>
+                                       </toggles>
+                                       <VBox.margin>
+                                          <Insets right="45.0" />
+                                       </VBox.margin>
+                                    </ToggleButtonGroup>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" onMouseClicked="#delete" prefHeight="50.0" prefWidth="200.0" styleClass="cards">
+                                 <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/Delete.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="cards">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/Reload.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" onMouseClicked="#hidePropertyBar" prefHeight="50.0" prefWidth="200.0" styleClass="cards">
+                                 <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/Option.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" layoutX="62.0" layoutY="250.0" prefHeight="50.0" prefWidth="650.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="301.0">
+                     <children>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="50.0" prefWidth="550.0" styleClass="popup-bar">
+                           <effect>
+                              <DropShadow height="50.0" radius="24.5" width="50.0">
+                                 <color>
+                                    <Color opacity="0.25" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ChoiceBox fx:id="Algorithm" prefHeight="50.0" prefWidth="153.0" styleClass="cards">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></ChoiceBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="From" textFill="WHITE">
+                                       <font>
+                                          <Font name="Lato Thin" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="vertex" prefHeight="50.0" prefWidth="70.0" styleClass="cards">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></ChoiceBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="110.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="To" textFill="WHITE">
+                                       <font>
+                                          <Font name="Lato Thin" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox prefHeight="50.0" prefWidth="90.0" styleClass="cards">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></ChoiceBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0" styleClass="cards">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/Run.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="272.0" layoutY="10.0" prefHeight="100.0" prefWidth="150.0" styleClass="cards">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/RunbyStep.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
+                  <VBox fx:id="property_bar" alignment="CENTER" layoutX="451.0" layoutY="50.0" prefHeight="419.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/AddEdge.png" />
-                           </image>
-                        </ImageView>
+                        <VBox prefHeight="350.0" prefWidth="292.0" styleClass="popup-bar">
+                           <effect>
+                              <DropShadow height="50.0" radius="24.5" width="50.0">
+                                 <color>
+                                    <Color opacity="0.27586206793785095" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                           <children>
+                              <Label text="Graph Type" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Bold" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <CheckBox fx:id="isUndirected" mnemonicParsing="false" onAction="#toUndirected" prefHeight="23.0" prefWidth="178.0" text="is Undirected" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Regular" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="25.0" top="15.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <Line endX="100.0" opacity="0.38" startX="-120.0" stroke="#808080">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Line>
+                              <Label layoutX="20.0" layoutY="65.0" text="Adjency Board" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Bold" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TableView fx:id="adjacentMatrix" prefHeight="200.0" prefWidth="200.0" styleClass="popup-bar">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1200.0" styleClass="menu-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/Move.png" />
-                           </image>
-                        </ImageView>
+                        <VBox alignment="CENTER" onMouseClicked="#toMain" prefHeight="50.0" prefWidth="80.0">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icon/Logo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="-10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <MenuBar prefHeight="49.0" prefWidth="845.0" HBox.hgrow="ALWAYS">
+                          <menus>
+                            <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="File">
+                              <items>
+                                    <MenuItem mnemonicParsing="false" text="New" />
+                                    <MenuItem fx:id="menu_open" mnemonicParsing="false" onAction="#open" text="Open" />
+                                <MenuItem mnemonicParsing="false" onAction="#toSave" text="Save as ..." />
+                                    <MenuItem mnemonicParsing="false" text="Quit" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="Edit">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                    <MenuItem mnemonicParsing="false" text="Find" />
+                                    <MenuItem mnemonicParsing="false" text="Sort" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="View">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="Zoom In" />
+                                    <MenuItem mnemonicParsing="false" text="Zoom Out" />
+                                    <CheckMenuItem mnemonicParsing="false" text="Property" />
+                                    <CheckMenuItem mnemonicParsing="false" text="Log" />
+                              </items>
+                            </Menu>
+                              <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="Settings">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" text="Actions" />
+                                  <MenuItem mnemonicParsing="false" text="Preferences" />
+                                </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="Help">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="About" />
+                                 </items>
+                              </Menu>
+                          </menus>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MenuBar>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/Delete.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/Save_Bold.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/Path.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="cards">
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/Logo.png" />
-                           </image>
-                        </ImageView>
-                     </children>
+                     <effect>
+                        <DropShadow height="50.0" radius="24.5" width="50.0">
+                           <color>
+                              <Color opacity="0.5043103694915771" />
+                           </color>
+                        </DropShadow>
+                     </effect>
                   </HBox>
                </children>
-               <VBox.margin>
-                  <Insets left="-20.0" right="20.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox layoutX="25.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="popup-bar" HBox.hgrow="ALWAYS">
-               <effect>
-                  <DropShadow height="50.0" radius="24.5" width="50.0">
-                     <color>
-                        <Color opacity="0.27586206793785095" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <HBox.margin>
-                  <Insets left="500.0" />
-               </HBox.margin>
-            </VBox>
+            </AnchorPane>
          </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="side-bar" />
+      <HBox prefHeight="128.0" prefWidth="814.0" styleClass="side-bar" />
    </children>
 </VBox>

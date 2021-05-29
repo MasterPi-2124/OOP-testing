@@ -2,10 +2,6 @@
     -fx-background-color: gray;
 }
 
-.side-bar {
-    -fx-background-color: #282b3c;
-}
-
 .main-pane {
     -fx-background-color: #222534;
 }
@@ -20,6 +16,10 @@
     -fx-background-color: #353652;
 }
 
+.side-bar {
+    -fx-background-color: #282b3c;
+}
+
 .sidebar-option {
     -fx-background-color: #282b3c;
 }
@@ -31,20 +31,74 @@
     -fx-border-style: solid;
 }
 
-.menubar-option {
-    -fx-background-color: #282b3c;
-}
-
 .menu-bar {
     -fx-background-color: #282b3c;
+
+}
+.menu-bar .menu-button {
+    -fx-effect: null;
+}
+.menu-bar .label {
+    -fx-font-size: 15.0 pt;
+    -fx-font-family: "Lato";
+    -fx-text-fill: white;
+    -fx-padding: 11;
 }
 
-.menubar-option:hover {
+.menu-bar .label:hover {
     -fx-background-color: #353652;
+}
+
+.menu-item .label{
+    -fx-font-size: 15.0 pt;
+    -fx-text-fill: white;
+    -fx-effect: null;
+}
+
+.menu-item .label:hover {
+    -fx-background-color: #353652;
+}
+
+.toggle-button {
+    -fx-background-color: #282b3c;
+    -fx-background-radius: 10 10 10 10;
+}
+.toggle-button:hover {
+    -fx-background-color: #353652;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #353652;
+}
+
+.toggle-group {
+    -fx-effect: null;
+}
+
+.context-menu {
+    -fx-background-color: #282b3c;
+    -fx-background-radius: 6.0 6.0 6.0 6.0;
+    -fx-opacity: 1;
 }
 
 .popup-bar {
     -fx-background-color: #282b3c;
     -fx-background-radius: 10 10 10 10;
     -fx-border-radius: 10 10 10 10;
+}
+
+.vertex {
+    -fx-font-size: 15;
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, #000000, 6, 0.2, 0, 1);
+}
+
+.vertex:hover {
+    -fx-background-color: #d2d2d2;
+}
+
+.edge {
+    -fx-stroke: yellow;
+    -fx-stroke-width: 3;
 }

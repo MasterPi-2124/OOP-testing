@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -61,6 +62,9 @@
                      <font>
                         <Font name="Lato Regular" size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
                <padding>
@@ -85,12 +89,15 @@
                            <font>
                               <Font name="Lato Regular" size="20.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="sidebar-option">
                      <children>
-                        <Label ellipsisString="" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" text="   Open" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <Label ellipsisString="" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="60.0" prefWidth="60.0" text="   Open" textFill="WHITE" HBox.hgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -104,6 +111,9 @@
                            <font>
                               <Font name="Lato Regular" size="20.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Label>
                      </children>
                   </HBox>
@@ -113,7 +123,7 @@
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../icon/Path.png" />
+                                    <Image url="@../icon/Information.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -123,6 +133,9 @@
                            <font>
                               <Font name="Lato Regular" size="20.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Label>
                      </children>
                   </HBox>
@@ -144,6 +157,9 @@
                      <padding>
                         <Insets left="15.0" />
                      </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
             </HBox>
@@ -190,12 +206,15 @@
                                  </color>
                               </DropShadow>
                            </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Pane>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
                      <children>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="180.0" prefWidth="180.0" styleClass="cards">
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="79.0" layoutX="51.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -215,6 +234,9 @@
                                  </color>
                               </DropShadow>
                            </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Pane>
                      </children>
                   </VBox>
@@ -240,6 +262,9 @@
                                  </color>
                               </DropShadow>
                            </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Pane>
                      </children>
                   </VBox>

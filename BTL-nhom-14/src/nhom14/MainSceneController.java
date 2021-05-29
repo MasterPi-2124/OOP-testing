@@ -1,6 +1,6 @@
 package nhom14;
 
-import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,32 +11,40 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MainSceneController implements Initializable {
-    @FXML
-    private HBox parent;
     @FXML
     private VBox side_bar;
 
     boolean isExpanded = false;
     private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+
     public void toDraw(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Draw.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Draw.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, stage.getWidth(), stage.getHeight());
-        stage.setScene(scene);;
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
+
+    public void open(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll( new FileChooser.ExtensionFilter("Text Files", "*txt"),
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Graph Path Finder Files", "*.abc"),
+                new FileChooser.ExtensionFilter("All Files","*abc", "*.png", "*.jpg", "*.gif", "*.txt")
+        );
+        File file = fileChooser.showOpenDialog(stage);
+    }
+
     @FXML
     private void expand_sidebar(MouseEvent event) {
         if (isExpanded) {
