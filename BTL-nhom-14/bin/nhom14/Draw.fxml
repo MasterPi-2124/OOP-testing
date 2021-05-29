@@ -250,7 +250,7 @@
                               <TableView fx:id="adjacentMatrix" prefHeight="200.0" prefWidth="200.0" styleClass="popup-bar">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="vertexColumn" prefWidth="75.0" text="C2" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

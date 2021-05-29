@@ -55,7 +55,7 @@ public class DFS_BFS {
                 graph.getVertex(currentNode).GetShape().setTextFill(Color.DEEPPINK);
                 //graph.getVertex(currentNode).getShape().setStrokeWidth(5);
 
-                for(Vertex v: graph.getAdjacentVertexs(currentNode)){
+                for(Vertex v: graph.getAdjacentVertices(currentNode)){
                     if(!visited[v.getID()]){
                         visited[v.getID()] = true;
                         queue.add(v.getID());
@@ -97,15 +97,15 @@ public class DFS_BFS {
                 }
 
                 int i;
-                for(i=0;i < graph.getAdjacentVertexs(currentNode).size();i++){
-                    Vertex v = graph.getAdjacentVertexs(currentNode).get(i);
+                for(i=0;i < graph.getAdjacentVertices(currentNode).size();i++){
+                    Vertex v = graph.getAdjacentVertices(currentNode).get(i);
                     if(!visited[v.getID()]){
                         stack.push(v.getID());
                         graph.getVertex(currentNode).GetShape().setTextFill(Color.DARKORANGE);
                         break;
                     }
                 }
-                if(i == graph.getAdjacentVertexs(currentNode).size()){
+                if(i == graph.getAdjacentVertices(currentNode).size()){
                     int node = stack.pop();
                     graph.getVertex(node).GetShape().setTextFill(Color.GREY);
                     //graph.getVertex(node).getShape().setStrokeWidth(0);
