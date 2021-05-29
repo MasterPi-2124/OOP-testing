@@ -17,6 +17,24 @@ public class Edge extends Group {
                          HEAD_ANGLE = Math.toRadians(40),
                          HEAD_LENGTH = 10;
 
+    int start, end;
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getEnd() {
+        return end;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
     public Edge(double x1, double y1, double x2, double y2) {
         this.x1.set(x1);
         this.y1.set(y1);

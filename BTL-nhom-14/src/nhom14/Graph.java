@@ -8,8 +8,8 @@ public class Graph {
     // Attributes
     private Pane displayPane;
     private ArrayList<Vertex> vertexList;
-    private ArrayList<ArrayList<Integer>> EdgeList = new ArrayList<>();
-    private ArrayList<Edge> edgeList = new ArrayList<>();
+    private ArrayList<ArrayList<Integer>> edgeList = new ArrayList<>();
+    private ArrayList<Edge> EdgeList = new ArrayList<>();
 
     // constructor
     public Graph(Pane displayPane, int n) {
@@ -38,7 +38,7 @@ public class Graph {
     }
 
     public ArrayList<Edge> getEdgeList() {
-        return edgeList;
+        return EdgeList;
     }
 
     void createEdge(Vertex u, Vertex v) {
@@ -47,13 +47,14 @@ public class Graph {
         line.y1Property().bind(u.GetShape().layoutYProperty());
         line.x2Property().bind(v.GetShape().layoutXProperty());
         line.y2Property().bind(v.GetShape().layoutYProperty());
-
-        //u.addAjacentVertex(v);
+        line.setStart(u.getID());
+        line.setEnd(v.getID());
         ArrayList<Integer> e = new ArrayList<>();
         e.add(u.getID());
-        EdgeList.add(e);
-        edgeList.add(line);
-
+        //EdgeList.add(e);
+        EdgeList.add(line);
+        u.addAdjacentVertex(v);
+        System.out.println(toString());
         displayPane.getChildren().add(line);
     }
 
@@ -68,17 +69,19 @@ public class Graph {
             }
         }
         createEdge(t1,t2);
+        System.out.println(toString());
     }
 
     public void addVertex(Vertex v) {
         vertexList.add(v);
+        System.out.println(toString());
     }
 
     public void addVertex(double x, double y) {
         vertexList.add(new Vertex(numberVertex(), x, y));
     }
 
-    public ArrayList<Vertex> getAdjacentVertexs(int i){
+    public ArrayList<Vertex> getAdjacentVertices(int i){
         return vertexList.get(i).getAdjacentNode();
     }
 
@@ -88,9 +91,12 @@ public class Graph {
         for(int i=0; i<vertexList.size(); i++) {
             str += i + ": [";
             for(Vertex v: vertexList.get(i).getAdjacentNode()) {
-                str += v + "  ";
+                str += v.getID() + "  ";
             }
             str += "]\n";
+        }
+        for(int i = 0; i < EdgeList.size(); i++) {
+            str += EdgeList.get(i).getStart() + " -> " + EdgeList.get(i).getEnd() + "\n";
         }
         return str;
     }
@@ -106,7 +112,7 @@ public class Graph {
     private void dfs(ArrayList<Integer> dfsTraversal, int s, boolean[] visited) {
         dfsTraversal.add(s);
         visited[s] = true;
-        for(Vertex v: getAdjacentVertexs(s)) {
+        for(Vertex v: getAdjacentVertices(s)) {
             if(!visited[v.getID()]) {
                 dfs(dfsTraversal, v.getID(), visited);
             }

@@ -48,6 +48,7 @@ public class Vertex extends Button {
     ArrayList<Vertex> getAdjacentNode() {
         return adjacentVertex;
     }
+
     void setAdjacentNode(ArrayList<Vertex> adjacentVertex) {
         this.adjacentVertex = adjacentVertex;
     }

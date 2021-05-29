@@ -10,9 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,6 +38,12 @@ public class DrawSceneController {
 
     @FXML
     private ChoiceBox vertex;
+
+    @FXML
+    private TableView<Integer> adjacentMatrix;
+
+    @FXML
+    private TableColumn<Integer, Integer> vertexColumn;
 
     private Graph  graph;
 
@@ -180,6 +184,10 @@ public class DrawSceneController {
         }
     }
 
+    public void d() {
+
+    }
+
     // Mouse Listener
     public void onGraphPressed(MouseEvent event) {
         if (canAddVertex && event.isPrimaryButtonDown()) {
@@ -191,7 +199,6 @@ public class DrawSceneController {
     public Node addVertex(MouseEvent event) {
             Vertex v = new Vertex(graph.numberVertex(), event.getX(), event.getY());
             graph.addVertex(v);
-            System.out.println(graph.toString());
             v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
             v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
             return v.GetShape();
