@@ -45,7 +45,7 @@ public class Vertex extends Button {
     void setID(int iD) {
         this.ID = iD;
     }
-    ArrayList<Vertex> getAdjacentNode() {
+    ArrayList<Vertex> getAdjacentVertex() {
         return adjacentVertex;
     }
 

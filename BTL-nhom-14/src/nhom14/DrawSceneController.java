@@ -48,7 +48,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
 
     @FXML
     private ChoiceBox<Integer> startPoint;
-
+    
     @FXML
     private ChoiceBox<String> Algorithm;
 
@@ -65,6 +65,8 @@ public class DrawSceneController extends OutputStream implements Initializable {
 
     private Graph graph;
     private DFS_BFS algo;
+    private AllPath allpath;
+    
     private boolean isHidden = false,
                     canAddVertex = false,
                     canAddEdge = false,
@@ -222,7 +224,11 @@ public class DrawSceneController extends OutputStream implements Initializable {
                 System.out.println("Running BFS from point " + startPoint.getValue() + " ...\n");
                 try {
                     run.setSelected(true);
-                    algo.runBFS(startPoint.getValue());
+                    allpath.setStartVertex(startPoint.getValue());
+                    allpath.setEndVertex(4);
+                    allpath.initialize();
+                    allpath.TRY(1);
+                    //algo.runBFS(startPoint.getValue());
                 } catch (Exception e) {
                     System.out.println("Running BFS failed: " + e.getMessage());
                     run.setSelected(false);
@@ -277,7 +283,8 @@ public class DrawSceneController extends OutputStream implements Initializable {
         System.out.println("Point " + v.getID() + "(" + event.getX() + "; " + event.getY() + ") is created!");
         startPoint.getItems().add(v.getID());
         algo = new DFS_BFS(graph);
-
+        allpath = new AllPath(graph);
+        
         return v.GetShape();
     }
 
@@ -290,7 +297,8 @@ public class DrawSceneController extends OutputStream implements Initializable {
         System.out.println("Point " + v.getID() + "(" + x + "; " + y + ") is created!");
         startPoint.getItems().add(v.getID());
         algo = new DFS_BFS(graph);
-
+        allpath = new AllPath(graph);
+        
         return v.GetShape();
     }
 
@@ -303,7 +311,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                 boolean check = true;
                 v2 = v;
                 if (v2 != v1) {
-                    for (Vertex i : v1.getAdjacentNode()) {
+                    for (Vertex i : v1.getAdjacentVertex()) {
                         if (i.getID() == v2.getID()) {
                             check = false;
                             break;
@@ -314,6 +322,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                         id = 1;
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is created!");
                         algo = new DFS_BFS(graph);
+                        allpath = new AllPath(graph);
                     } else {
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is already created!");
                     }

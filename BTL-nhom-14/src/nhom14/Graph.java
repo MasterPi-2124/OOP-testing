@@ -2,6 +2,7 @@ package nhom14;
 
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class Graph {
 
@@ -25,7 +26,11 @@ public class Graph {
         this(displayPane,0);
     }
 
-    public int numberVertex() {
+    public Graph() {
+	
+	}
+
+	public int numberVertex() {
         return this.vertexList.size();
     }
 
@@ -80,7 +85,7 @@ public class Graph {
     }
 
     public ArrayList<Vertex> getAdjacentVertices(int i){
-        return vertexList.get(i).getAdjacentNode();
+        return vertexList.get(i).getAdjacentVertex();
     }
 
     @Override
@@ -88,7 +93,7 @@ public class Graph {
         String str = "";
         for(int i=0; i<vertexList.size(); i++) {
             str += i + ": [";
-            for(Vertex v: vertexList.get(i).getAdjacentNode()) {
+            for(Vertex v: vertexList.get(i).getAdjacentVertex()) {
                 str += v.getID() + "  ";
             }
             str += "]\n";
@@ -123,7 +128,14 @@ public class Graph {
 
 	public void resetVerticesColor() {
 		for(Vertex v: vertexList) {
-			v.getShape();
+			v.GetShape().setStyle("-fx-background-color: white");
+			v.GetShape().setTextFill(Color.BLACK);
+		}
+	}
+	
+	public void setAllIndexColor(Color c) {
+		for(Vertex v: vertexList) {
+			v.GetShape().setTextFill(c);
 		}
 	}
 }

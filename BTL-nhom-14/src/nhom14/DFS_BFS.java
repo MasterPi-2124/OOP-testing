@@ -47,10 +47,10 @@ public class DFS_BFS {
         queue.add(startNode);
         queue.add(startNode);
         visited[startNode] = true;
-        graph.getVertexList().get(startNode).GetShape().setTextFill(Color.ORANGE);
-        //graph.getVertexList().get(startNode).GetShape().set
-
-        KeyFrame bfsKeyFrame = new KeyFrame(Duration.seconds(1), e -> test(queue));
+        graph.setAllIndexColor(Color.WHITE);
+        //graph.getVertexList().get(startNode).GetShape().setTextFill(Color.WHITE);
+  
+        KeyFrame bfsKeyFrame = new KeyFrame(Duration.seconds(1.5), e -> test(queue));
         visualizer = new Timeline(bfsKeyFrame);
         visualizer.setCycleCount(Animation.INDEFINITE);
         visualizer.setAutoReverse(false);
@@ -61,17 +61,19 @@ public class DFS_BFS {
     public void test(Queue queue) {
         {
             if(queue.size()>1){
-                graph.getVertex((Integer) queue.poll()).GetShape().setTextFill(Color.DARKORANGE);
+            	int n = (int) queue.poll();
+                graph.getVertex(n).GetShape().setStyle("-fx-background-color: red");
+                graph.getVertex(n).GetShape().setTextFill(Color.WHITE);
                 int currentNode = (int) queue.peek();
                 graph.getVertex(currentNode).GetShape().setStyle("-fx-background-color: green");
-                //graph.getVertex(currentNode).getShape().setStrokeWidth(5);
+                graph.getVertex(currentNode).GetShape().setTextFill(Color.WHITE);
 
                 System.out.println(graph.getAdjacentVertices(currentNode).size());
                 for(Vertex v: graph.getAdjacentVertices(currentNode)){
                     if(!visited[v.getID()]){
                         visited[v.getID()] = true;
                         queue.add(v.getID());
-                        v.GetShape().setStyle("-fx-background-color: red");
+                        v.GetShape().setStyle("-fx-background-color: gray");
                         System.out.println("Set color successfully");
                     }
                 }
@@ -79,7 +81,6 @@ public class DFS_BFS {
             else{
                 stop();
                 isRunning = false;
-                //graph.getVertex(queue.poll()).getShape().setStrokeWidth(0);
             }
         }
     }
@@ -91,17 +92,17 @@ public class DFS_BFS {
 
         graph.setDisable(true);
         stack.push(startNode);
+        graph.setAllIndexColor(Color.WHITE);
 
-        KeyFrame dfsKeyFrame = new KeyFrame(Duration.seconds(1), e->{
+        KeyFrame dfsKeyFrame = new KeyFrame(Duration.seconds(1.5), e->{
             if(!stack.isEmpty()){
                 int currentNode = stack.peek();
                 visited[currentNode] = true;
                 
-                graph.getVertex(currentNode).GetShape().setTextFill(Color.DEEPPINK);
-                //graph.getVertex(currentNode).GetShape();
-
+                graph.getVertex(currentNode).GetShape().setPrefSize(55, 55);
+                
                 if(stack.size() > 1){
-                    graph.getVertex(stack.get(stack.size()-2)).GetShape();
+                    graph.getVertex(stack.get(stack.size()-2)).GetShape().setPrefSize(50, 50);
                 }
 
                 int i;
@@ -109,14 +110,15 @@ public class DFS_BFS {
                     Vertex v = graph.getAdjacentVertices(currentNode).get(i);
                     if(!visited[v.getID()]){
                         stack.push(v.getID());
-                        graph.getVertex(currentNode).GetShape().setStyle("-fx-background-color: red");
+                        graph.getVertex(currentNode).GetShape().setStyle("-fx-background-color: yellow");
                         break;
                     }
                 }
                 if(i == graph.getAdjacentVertices(currentNode).size()){
                     int node = stack.pop();
-                    graph.getVertex(node).GetShape().setStyle("-fx-background-color: green");
-                    //graph.getVertex(node).getShape().setStrokeWidth(0);
+                    graph.getVertex(node).GetShape().setStyle("-fx-background-color: yellow");
+                    graph.getVertex(node).GetShape().setStyle("-fx-background-color: gray");
+                    graph.getVertex(currentNode).GetShape().setPrefSize(50, 50);
                 }
             }
             else{

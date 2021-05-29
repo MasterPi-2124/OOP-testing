@@ -84,7 +84,8 @@ public class Edge extends Group {
                 y1 + Math.sin(theta) * LINE_SCALAR
         };
     }
-
+    
+    
     public double getX1() {
         return x1.get();
     }
