@@ -71,10 +71,6 @@
     -fx-background-color: #353652;
 }
 
-.toggle-group {
-    -fx-effect: null;
-}
-
 .context-menu {
     -fx-background-color: #282b3c;
     -fx-background-radius: 6.0 6.0 6.0 6.0;
@@ -101,4 +97,57 @@
 .edge {
     -fx-stroke: yellow;
     -fx-stroke-width: 3;
+}
+
+.text-area {
+    -fx-background-color: #282b3c;
+    -fx-border-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 7 7 7 7;
+    -fx-background-radius: 7 7 7 7;
+    -fx-text-fill: white;
+    -fx-text-alignment: 10px 10px 10px 10px;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.text-area:focused {
+    -fx-background-color: #282b3c;
+    -fx-border-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 7 7 7 7;
+    -fx-background-radius: 7 7 7 7;
+    -fx-text-fill: white;
+    -fx-text-alignment: 10px 10px 10px 10px;
+}
+
+
+.choice-box {
+    -fx-border-width: 0;
+    -fx-pref-height: 49;
+    -fx-background-color: #282b3c;
+    -fx-background-radius: 10;
+    -fx-mark-color: #282b3c;
+    -fx-text-fill: white;
+    -fx-text-alignment: center-left;
+}
+
+.choice-box:hover {
+    -fx-background-color: #353652;
+}
+
+.arrow {
+    -fx-background-color: #4c4d70;
 }

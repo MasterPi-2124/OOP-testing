@@ -8,12 +8,7 @@ public class Graph {
     // Attributes
     private Pane displayPane;
     private ArrayList<Vertex> vertexList;
-
-    //private ArrayList<ArrayList<Integer>> EdgeList = new ArrayList<>();
-    //private ArrayList<Edge> edgeList = new ArrayList<>();
-
-    //private ArrayList<ArrayList<Integer>> edgeList = new ArrayList<>();
-    private ArrayList<Edge> EdgeList = new ArrayList<>();
+    private ArrayList<Edge> edgeList = new ArrayList<>();
 
 
     // constructor
@@ -23,7 +18,7 @@ public class Graph {
         for(int i=0; i<n; i++) {
             vertexList.add(new Vertex(i));
         }
-        EdgeList = new ArrayList<>() ;
+        edgeList = new ArrayList<>() ;
     }
 
     public Graph(Pane displayPane) {
@@ -43,7 +38,7 @@ public class Graph {
     }
 
     public ArrayList<Edge> getEdgeList() {
-        return EdgeList;
+        return edgeList;
     }
 
     void createEdge(Vertex u, Vertex v) {
@@ -54,14 +49,8 @@ public class Graph {
         line.y2Property().bind(v.GetShape().layoutYProperty());
         line.setStart(u.getID());
         line.setEnd(v.getID());
-        ArrayList<Integer> e = new ArrayList<>();
-        e.add(u.getID());
-        //EdgeList.add(e);
-
-//      edgeList.add(line);
-        EdgeList.add(line);
+        edgeList.add(line);
         u.addAdjacentVertex(v);
-        System.out.println(toString());
 
         displayPane.getChildren().add(line);
     }
@@ -77,7 +66,6 @@ public class Graph {
             }
         }
         createEdge(t1,t2);
-        System.out.println(toString());
     }
 
     public void addVertex(Vertex v) {
@@ -103,8 +91,8 @@ public class Graph {
             }
             str += "]\n";
         }
-        for(int i = 0; i < EdgeList.size(); i++) {
-            str += EdgeList.get(i).getStart() + " -> " + EdgeList.get(i).getEnd() + "\n";
+        for(int i = 0; i < edgeList.size(); i++) {
+            str += edgeList.get(i).getStart() + " -> " + edgeList.get(i).getEnd() + "\n";
         }
         return str;
     }
@@ -136,7 +124,7 @@ public class Graph {
     }
 */
 
-	public void resetVertexsColor() {
+	public void resetVerticesColor() {
 		for(Vertex v: vertexList) {
 			v.getShape();
 		}

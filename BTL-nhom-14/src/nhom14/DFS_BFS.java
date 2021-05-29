@@ -133,7 +133,7 @@ public class DFS_BFS {
     void stop(){
         if(isRunning){
             graph.setDisable(false);
-            graph.resetVertexsColor();
+            graph.resetVerticesColor();
             visualizer.stop();
             isRunning = false;
         }

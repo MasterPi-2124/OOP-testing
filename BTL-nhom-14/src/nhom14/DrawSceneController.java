@@ -1,12 +1,17 @@
 package nhom14;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.TreeMap;
 
+import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +23,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class DrawSceneController {
+import javax.swing.*;
+
+public class DrawSceneController extends OutputStream implements Initializable {
+
     @FXML
     private Stage stage;
 
@@ -37,13 +45,19 @@ public class DrawSceneController {
     private CheckBox isUndirected;
 
     @FXML
-    private ChoiceBox vertex;
+    private ChoiceBox<Integer> startPoint;
+
+    @FXML
+    private ChoiceBox<String> Algorithm;
 
     @FXML
     private TableView<Integer> adjacentMatrix;
 
     @FXML
     private TableColumn<Integer, Integer> vertexColumn;
+
+    @FXML
+    private TextArea log;
 
     private Graph  graph;
     
@@ -59,6 +73,7 @@ public class DrawSceneController {
 
     //Configuration for Menu bar
     public void toMain(MouseEvent event) throws IOException {
+        System.out.println("Redirecting to Main ...");
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -76,9 +91,11 @@ public class DrawSceneController {
         );
         try {
             File file = fileChooser.showOpenDialog(stage);
+            System.out.println("Opening " + file.getName() + " ...");
             load(file.getName());
+
         } catch (Exception e) {
-            System.out.println("errror.");
+            System.out.println("The file can not be opened due to errors.");
         }
     }
 
@@ -123,9 +140,11 @@ public class DrawSceneController {
             canAddEdge = false;
             Movable.setSelected(false);
             isMovable = false;
+            System.out.println("Toggle: addVertex = true");
         } else {
             addVertex.setSelected(false);
             canAddVertex = false;
+            System.out.println("Toggle: addVertex = false");
         }
     }
 
@@ -137,9 +156,11 @@ public class DrawSceneController {
             canAddEdge = true;
             Movable.setSelected(true);
             isMovable = false;
+            System.out.println("Toggle: addEdge = true");
         } else {
             addEdge.setSelected(false);
             canAddEdge = false;
+            System.out.println("Toggle: addEdge = false");
         }
     }
 
@@ -151,9 +172,11 @@ public class DrawSceneController {
             canAddEdge = false;
             Movable.setSelected(true);
             isMovable = true;
+            System.out.println("Toggle: Movable = true");
         } else {
             Movable.setSelected(false);
             isMovable = false;
+            System.out.println("Toggle: Movable = false");
         }
     }
 
@@ -161,9 +184,11 @@ public class DrawSceneController {
         if (isHidden) {
             property_bar.setOpacity(1.0);
             isHidden = false;
+            System.out.println("Toggle: hiddenProperty = false");
         } else {
             property_bar.setOpacity(0.0);
             isHidden = true;
+            System.out.println("Toggle: hiddenProperty = true");
         }
     }
 
@@ -171,6 +196,7 @@ public class DrawSceneController {
         while(displayPane.getChildren().size() != 0)
             displayPane.getChildren().remove(0);
         graph = null;
+        System.out.println("Deleted. Starting new Scene....\n");
     }
 
     // Configuration for right bar
@@ -179,14 +205,29 @@ public class DrawSceneController {
             for (Edge e : graph.getEdgeList()) {
                 e.setHeadVisible(false);
             }
+            System.out.println("Changed to Directed Graph.");
         } else {
             for (Edge e : graph.getEdgeList()) {
                 e.setHeadVisible(true);
             }
+            System.out.println("Changed to Undirected Graph.");
         }
     }
 
-    public void d() {
+    // Algorithm controller
+    public void run(MouseEvent event) {
+
+    }
+
+    public void runStep(MouseEvent event) {
+
+    }
+
+    public void stop(MouseEvent event) {
+
+    }
+
+    public void pause(MouseEvent event) {
 
     }
 
@@ -199,19 +240,22 @@ public class DrawSceneController {
     }
 
     public Node addVertex(MouseEvent event) {
-            Vertex v = new Vertex(graph.numberVertex(), event.getX(), event.getY());
-            graph.addVertex(v);
-            v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
-            v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
-            return v.GetShape();
+        Vertex v = new Vertex(graph.numberVertex(), event.getX(), event.getY());
+        graph.addVertex(v);
+        v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
+        v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
+        System.out.println("Point " + v.getID() + "(" + event.getX() + "; " + event.getY() + ") is created!");
+        startPoint.getItems().add(v.getID());
+        return v.GetShape();
     }
 
     public Node addVertex(double x, double y) {
         Vertex v = new Vertex(graph.numberVertex(), x, y);
         graph.addVertex(v);
-        System.out.println(graph.toString());
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
+        startPoint.getItems().add(v.getID());
+        System.out.println("Point " + v.getID() + "(" + x + "; " + y + ") is created!");
         return v.GetShape();
     }
 
@@ -220,13 +264,23 @@ public class DrawSceneController {
             if (id == 1) {
                 v1 = v;
                 id = 2;
-                System.out.println(v1.getID());
             } else if (id == 2) {
+                boolean check = true;
                 v2 = v;
-                System.out.println(v2.getID());
                 if (v2 != v1) {
-                    graph.createEdge(v1, v2);
-                    id = 1;
+                    for (Vertex i : v1.getAdjacentNode()) {
+                        if (i.getID() == v2.getID()) {
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check) {
+                        graph.createEdge(v1, v2);
+                        id = 1;
+                        System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is created!");
+                    } else {
+                        System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is already created!");
+                    }
                 }
             }
         }
@@ -239,4 +293,48 @@ public class DrawSceneController {
         }
     }
 
+
+    // Export to Log Text Area
+    private void updateTextArea(final String text) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                appendText(text);
+            }
+        });
+    }
+
+    @Override
+    public void write(int arg0) throws IOException {
+
+    }
+
+    public void appendText(String str) {
+        Platform.runLater(() -> log.appendText(str));
+    }
+
+    //Initialization code
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        OutputStream output = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                updateTextArea(String.valueOf((char) b));
+            }
+
+            @Override
+            public void write(byte[] b, int off, int len) throws IOException {
+                updateTextArea(new String(b,off,len));
+            }
+
+            public void write(byte[] b) throws IOException {
+                write(b, 0, b.length);
+            }
+        };
+
+        System.setOut(new PrintStream(output, true));
+        Algorithm.getItems().add("Depth First Search");
+        Algorithm.getItems().add("Breadth First Search");
+        Algorithm.setValue("Depth First Search");
+        System.out.println("Start drawing. See Help for more information.");
+    }
 }

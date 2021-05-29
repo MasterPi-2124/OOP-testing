@@ -12,6 +12,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -133,7 +134,7 @@
                   </VBox>
                   <HBox alignment="CENTER" layoutX="62.0" layoutY="250.0" prefHeight="50.0" prefWidth="650.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="301.0">
                      <children>
-                        <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="50.0" prefWidth="550.0" styleClass="popup-bar">
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="50.0" prefWidth="600.0" styleClass="popup-bar">
                            <effect>
                               <DropShadow height="50.0" radius="24.5" width="50.0">
                                  <color>
@@ -142,41 +143,34 @@
                               </DropShadow>
                            </effect>
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="150.0">
                                  <children>
-                                    <ChoiceBox fx:id="Algorithm" prefHeight="50.0" prefWidth="153.0" styleClass="cards">
+                                    <ChoiceBox fx:id="Algorithm" prefHeight="50.0" prefWidth="153.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></ChoiceBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                              <HBox prefHeight="50.0" prefWidth="129.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="From" textFill="WHITE">
+                                    <Label alignment="CENTER" text="From" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="Lato Thin" size="18.0" />
                                        </font>
+                                       <HBox.margin>
+                                          <Insets top="13.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
                                     </Label>
-                                    <ChoiceBox fx:id="vertex" prefHeight="50.0" prefWidth="70.0" styleClass="cards">
+                                    <ChoiceBox fx:id="startPoint" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="83.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></ChoiceBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" layoutX="110.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="To" textFill="WHITE">
-                                       <font>
-                                          <Font name="Lato Thin" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <ChoiceBox prefHeight="50.0" prefWidth="90.0" styleClass="cards">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></ChoiceBox>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0" styleClass="cards">
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0" styleClass="cards" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -188,11 +182,23 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox alignment="CENTER" layoutX="272.0" layoutY="10.0" prefHeight="100.0" prefWidth="150.0" styleClass="cards">
+                              <HBox alignment="CENTER" layoutX="272.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" styleClass="cards" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../icon/RunbyStep.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="418.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" styleClass="cards" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icon/Stop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -337,6 +343,42 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox prefHeight="128.0" prefWidth="814.0" styleClass="side-bar" />
+      <HBox prefHeight="166.0" prefWidth="1200.0" styleClass="side-bar">
+         <children>
+            <VBox prefHeight="166.0" prefWidth="638.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Log" textFill="WHITE">
+                     <font>
+                        <Font name="Lato Regular" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextArea fx:id="log" editable="false" prefHeight="200.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="166.0" prefWidth="459.0">
+               <children>
+                  <Label text="Path" textFill="WHITE">
+                     <font>
+                        <Font name="Lato Regular" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextArea fx:id="path" editable="false" prefHeight="137.0" prefWidth="439.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+         </children></HBox>
    </children>
 </VBox>
