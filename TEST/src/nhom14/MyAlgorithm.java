@@ -327,6 +327,10 @@ public class MyAlgorithm {
 		for(int i = 1; i < sizeline; i++) {
 			Pair x = new Pair(arrMyLine.get(i).getIndexPointB(),arrMyLine.get(i).getCost());
 			arrLine.get(arrMyLine.get(i).getIndexPointA()).add(x);
+			if(mapType == false){
+				Pair y = new Pair(arrMyLine.get(i).getIndexPointA(),arrMyLine.get(i).getCost());
+				arrLine.get(arrMyLine.get(i).getIndexPointB()).add(y);
+			}
 		}
 		flag[beginPoint] = true;
 		solution.add(beginPoint);

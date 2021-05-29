@@ -657,6 +657,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		this.mapType = mapType;
 		myDraw.setTypeMap(mapType);
 		setDrawResultOrStep(false);
+		myDraw.setDrawsolution(false);
 		myDraw.repaint();
 		resetDataDijkstra();
 		loadMatrix();

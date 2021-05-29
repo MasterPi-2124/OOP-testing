@@ -544,6 +544,26 @@ class MyDraw extends JPanel implements MouseListener, MouseMotionListener {
 	public void drawSolution(Graphics2D g2d){
 		resetGraph(g2d);
 		reDraw(g2d,true);
+		if(typeMap == false) {
+			for(int i = 0; i < arrsolution1.size(); i++){
+				if(i != arrsolution1.size() - 1){
+					for(int j = 0; j < data.getArrMyLine().size(); j++){
+						if(arrsolution1.get(i) == data.getArrMyLine().get(j).getIndexPointA() &&
+							arrsolution1.get(i+1) == data.getArrMyLine().get(j).getIndexPointB()
+						){
+							data.getArrMyLine().get(j).drawLine(g2d,data.getArrMyPoint().get(arrsolution1.get(i)).getP(),
+									data.getArrMyPoint().get(arrsolution1.get(i+1)).getP(),Color.black,colorResult,2,true);
+						} else if(arrsolution1.get(i) == data.getArrMyLine().get(j).getIndexPointB() &&
+								arrsolution1.get(i+1) == data.getArrMyLine().get(j).getIndexPointA()) {
+							data.getArrMyLine().get(j).drawLine(g2d,data.getArrMyPoint().get(arrsolution1.get(i)).getP(),
+									data.getArrMyPoint().get(arrsolution1.get(i+1)).getP(),Color.black,colorResult,2,true);
+						}
+					}
+				}
+				data.getArrMyPoint().get(arrsolution1.get(i)).draw(g2d, arrsolution1.get(i), colorResult,Color.black);
+			}
+			return ;
+		}
 		for(int i = 0; i < arrsolution1.size(); i++){
 			if(i != arrsolution1.size() - 1){
 				for(int j = 0; j < data.getArrMyLine().size(); j++){
