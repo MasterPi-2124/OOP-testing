@@ -80,7 +80,7 @@ public class Graph {
     }
 
     public ArrayList<Vertex> getAdjacentVertices(int i){
-        return vertexList.get(i).getAdjacentNode();
+        return vertexList.get(i).getAdjacentVertex();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Graph {
         String str = "";
         for(int i=0; i<vertexList.size(); i++) {
             str += i + ": [";
-            for(Vertex v: vertexList.get(i).getAdjacentNode()) {
+            for(Vertex v: vertexList.get(i).getAdjacentVertex()) {
                 str += v.getID() + "  ";
             }
             str += "]\n";
@@ -99,31 +99,13 @@ public class Graph {
         return str;
     }
 
-    public ArrayList<Integer> runDFS(int s){
-        boolean[] visited = new boolean[numberVertex()];
-        ArrayList<Integer> dfsTraversal = new ArrayList<>();
-        dfs(dfsTraversal, s, visited);
-        return dfsTraversal;
-
-    }
-
-    private void dfs(ArrayList<Integer> dfsTraversal, int s, boolean[] visited) {
-        dfsTraversal.add(s);
-        visited[s] = true;
-        for(Vertex v: getAdjacentVertices(s)) {
-            if(!visited[v.getID()]) {
-                dfs(dfsTraversal, v.getID(), visited);
-            }
-        }
-    }
-
     public void setDisable(boolean status) {
         displayPane.setDisable(status);
     }
 
 	public void resetVerticesColor() {
 		for(Vertex v: vertexList) {
-			v.getShape();
+            v.GetShape().setStyle(" -fx-font-size: 15; -fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(three-pass-box, #000000, 6, 0.2, 0, 1);");
 		}
 	}
 }

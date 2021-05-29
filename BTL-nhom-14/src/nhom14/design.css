@@ -59,13 +59,15 @@
     -fx-background-color: #353652;
 }
 
-.toggle-group {
-    -fx-background-color: #282b3c;
+.pane {
+    -fx-pannable: true;
 }
 
 .toggle-button {
     -fx-background-color: #282b3c;
+    -fx-pref-width: 50;
     -fx-background-radius: 10 10 10 10;
+    -fx-effect: null;
 }
 .toggle-button:hover {
     -fx-background-color: #353652;

@@ -2,13 +2,13 @@ package nhom14;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -40,14 +41,14 @@ public class DrawSceneController extends OutputStream implements Initializable {
     private ToggleButton addVertex,
                          addEdge,
                          Movable,
-                         run,
-                         pause;
+                         run;
 
     @FXML
     private CheckBox isUndirected;
 
     @FXML
-    private ChoiceBox<Integer> startPoint;
+    private ChoiceBox<Integer> startPoint,
+                               endPoint;
 
     @FXML
     private ChoiceBox<String> Algorithm;
@@ -61,14 +62,21 @@ public class DrawSceneController extends OutputStream implements Initializable {
     @FXML
     private TextArea log;
 
-    @FXML TextArea path;
+    @FXML
+    private TextArea path;
 
+    @FXML
+    private HBox delete;
+
+    private AllPath allPath;
     private Graph graph;
     private DFS_BFS algo;
     private boolean isHidden = false,
                     canAddVertex = false,
                     canAddEdge = false,
-                    isMovable = false;
+                    isMovable = false,
+                    isRunning = false,
+                    isPaused = false;
     int id = 1;
     Vertex v1,v2;
 
@@ -155,7 +163,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
             canAddVertex = false;
             addEdge.setSelected(true);
             canAddEdge = true;
-            Movable.setSelected(true);
+            Movable.setSelected(false);
             isMovable = false;
             System.out.println("Toggle: addEdge = true");
         } else {
@@ -197,6 +205,10 @@ public class DrawSceneController extends OutputStream implements Initializable {
         while(displayPane.getChildren().size() != 0)
             displayPane.getChildren().remove(0);
         graph = null;
+        while (startPoint.getItems().size() > 0) {
+            startPoint.getItems().remove(0);
+            endPoint.getItems().remove(0);
+        }
         System.out.println("Deleted. Starting new Scene....\n");
     }
 
@@ -216,48 +228,116 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     // Algorithm controller
-    public void run() {
-        if (Algorithm.getValue().equals("Breadth First Search")) {
-            if (startPoint.getValue() != null) {
-                System.out.println("Running BFS from point " + startPoint.getValue() + " ...\n");
-                try {
-                    run.setSelected(true);
-                    algo.runBFS(startPoint.getValue());
-                } catch (Exception e) {
-                    System.out.println("Running BFS failed: " + e.getMessage());
-                    run.setSelected(false);
+
+    public void setOption() {
+        Algorithm.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Algorithm.setValue(Algorithm.getItems().get(newValue.intValue()));
+                if (Algorithm.getValue().equals("Find All Paths")) {
+                    endPoint.setDisable(false);
+                } else {
+                    endPoint.setDisable(true);
                 }
-            } else if (startPoint.getValue() == null) {
-                System.out.println("Running BFS failed because no start point is chosen.");
-                run.setSelected(false);
             }
-        } else if (Algorithm.getValue().equals("Depth First Search")) {
-            if (startPoint.getValue() != null) {
-                System.out.println("Running DFS from point " + startPoint.getValue() + " ...\n");
-                try {
-                    pause.setSelected(false);
-                    algo.runDFS(startPoint.getValue());
-                } catch (Exception e) {
-                    System.out.println("Running DFS failed: " + e.getMessage());
+        });
+    }
+
+    public void run() {
+        if (isRunning) {
+            run.setSelected(true);
+        } else {
+            if (Algorithm.getValue().equals("Breadth First Search")) {
+                if (startPoint.getValue() != null) {
+                    System.out.println("Running BFS from point " + startPoint.getValue() + " ...\n");
+                    try {
+                        isRunning = true;
+                        run.setSelected(true);
+                        Algorithm.setDisable(true);
+                        startPoint.setDisable(true);
+                        addEdge.setDisable(true);
+                        addVertex.setDisable(true);
+                        delete.setDisable(true);
+                        Movable.setDisable(true);
+
+                        algo.runBFS(startPoint.getValue());
+
+                    } catch (Exception e) {
+                        System.out.println("Running BFS failed: " + e.getMessage());
+                        isRunning = false;
+                        run.setSelected(false);
+                        Algorithm.setDisable(false);
+                        startPoint.setDisable(false);
+                        addEdge.setDisable(false);
+                        addVertex.setDisable(false);
+                        delete.setDisable(false);
+                    }
+                } else if (startPoint.getValue() == null) {
+                    System.out.println("Running BFS failed because no start point is chosen.");
                     run.setSelected(false);
                 }
-            } else if (startPoint.getValue() == null) {
-                System.out.println("Running DFS failed because no start point is chosen.");
+            } else if (Algorithm.getValue().equals("Depth First Search")) {
+                if (startPoint.getValue() != null) {
+                    System.out.println("Running DFS from point " + startPoint.getValue() + " ...\n");
+                    try {
+                        isRunning = true;
+                        run.setSelected(true);
+                        Algorithm.setDisable(true);
+                        startPoint.setDisable(true);
+                        addEdge.setDisable(true);
+                        addVertex.setDisable(true);
+                        delete.setDisable(true);
+
+                        algo.runDFS(startPoint.getValue());
+
+                    } catch (Exception e) {
+                        System.out.println("Running DFS failed: " + e.getMessage());
+                        isRunning = false;
+                        run.setSelected(false);
+                        Algorithm.setDisable(false);
+                        startPoint.setDisable(false);
+                        addEdge.setDisable(false);
+                        addVertex.setDisable(false);
+                        delete.setDisable(false);
+                    }
+                } else if (startPoint.getValue() == null) {
+                    System.out.println("Running DFS failed because no start point is chosen.");
+                    run.setSelected(false);
+                }
+            } else if (Algorithm.getValue().equals("Find All Paths")) {
                 run.setSelected(false);
+                if (startPoint.getValue() != null && endPoint.getValue() != null) {
+                    System.out.println("Paths from point " + startPoint.getValue() + " to point " + endPoint.getValue() + ":");
+                    allPath.setPathLog("");
+                    allPath.setPath(new ArrayList<>());
+                    allPath.setStartVertex(startPoint.getValue());
+                    allPath.setEndVertex(endPoint.getValue());
+                    allPath.initialize();
+                    allPath.TRY(1);
+                    if (allPath.getPathLog().length() == 0) allPath.setPathLog("No paths are found.\n");
+                    path.setText(allPath.getPathLog());
+                    System.out.println("Done.");
+                } else {
+                    System.out.println("Can not find paths because no point is chosen.");
+                }
             }
         }
     }
 
-    public void runStep(MouseEvent event) {
+    public void runStep() {
 
     }
 
     public void stop(MouseEvent event) {
-
-    }
-
-    public void pause(MouseEvent event) {
-
+        algo.stop();
+        isRunning = false;
+        run.setSelected(false);
+        Algorithm.setDisable(false);
+        startPoint.setDisable(false);
+        addEdge.setDisable(false);
+        addVertex.setDisable(false);
+        delete.setDisable(false);
+        Movable.setDisable(false);
     }
 
     // Mouse Listener
@@ -266,6 +346,12 @@ public class DrawSceneController extends OutputStream implements Initializable {
             if (graph == null) graph = new Graph(displayPane);
             displayPane.getChildren().add(addVertex(event));
         }
+        displayPane.setOnMouseDragged(e -> onPaneDragged(e));
+    }
+
+    public void onPaneDragged(MouseEvent event) {
+        displayPane.setLayoutX(displayPane.getLayoutX() + event.getX() + displayPane.getTranslateX());
+        displayPane.setLayoutY(displayPane.getLayoutY() + event.getY() + displayPane.getTranslateY());
     }
 
     public Node addVertex(MouseEvent event) {
@@ -276,8 +362,9 @@ public class DrawSceneController extends OutputStream implements Initializable {
 
         System.out.println("Point " + v.getID() + "(" + event.getX() + "; " + event.getY() + ") is created!");
         startPoint.getItems().add(v.getID());
+        endPoint.getItems().add(v.getID());
         algo = new DFS_BFS(graph);
-
+        allPath = new AllPath(graph);
         return v.GetShape();
     }
 
@@ -290,7 +377,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         System.out.println("Point " + v.getID() + "(" + x + "; " + y + ") is created!");
         startPoint.getItems().add(v.getID());
         algo = new DFS_BFS(graph);
-
+        allPath = new AllPath(graph);
         return v.GetShape();
     }
 
@@ -303,7 +390,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                 boolean check = true;
                 v2 = v;
                 if (v2 != v1) {
-                    for (Vertex i : v1.getAdjacentNode()) {
+                    for (Vertex i : v1.getAdjacentVertex()) {
                         if (i.getID() == v2.getID()) {
                             check = false;
                             break;
@@ -314,6 +401,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                         id = 1;
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is created!");
                         algo = new DFS_BFS(graph);
+                        allPath = new AllPath(graph);
                     } else {
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is already created!");
                     }
@@ -370,7 +458,10 @@ public class DrawSceneController extends OutputStream implements Initializable {
         System.setOut(new PrintStream(output, true));
         Algorithm.getItems().add("Depth First Search");
         Algorithm.getItems().add("Breadth First Search");
+        Algorithm.getItems().add("Find All Paths");
         Algorithm.setValue("Depth First Search");
         System.out.println("Start drawing. See Help for more information.");
+        run.setSelected(false);
+        endPoint.setDisable(true);
     }
 }
