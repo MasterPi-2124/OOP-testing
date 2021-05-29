@@ -274,6 +274,9 @@ public class MyFrame extends JFrame implements ActionListener {
 				combosolution.removeAllItems();
 				//System.out.println(dijkstra.getArrsolution().size());
 				ArrayList<ArrayList<Integer>> arrsolutionn = dijkstra.getArrsolution();
+				if(arrsolutionn.size() == 0) {
+					combosolution.addItem("No Solution");
+				}
 				//System.out.println(arrsolutionn.size());
 				for(int i = 0; i < arrsolutionn.size();i++){
 					hobo.add(arrsolutionn.get(i));
@@ -301,7 +304,9 @@ public class MyFrame extends JFrame implements ActionListener {
 						textLog.setText("Path: " + strsolution.get(i));
 						myDraw.setArrsolution1(hobo.get(i));
 						myDraw.setDrawsolution(true);
+						setDrawResultOrStep(false);
 						myDraw.repaint();
+						//myDraw.setDrawsolution(false);
 					}
 				}
 			}
@@ -447,6 +452,7 @@ public class MyFrame extends JFrame implements ActionListener {
 	private void actionUpdate() {
 		updateListPoint();
 		resetDataDijkstra();
+		myDraw.setDrawsolution(false);
 		setDrawResultOrStep(false);
 		reDraw();
 		loadMatrix();
@@ -457,12 +463,14 @@ public class MyFrame extends JFrame implements ActionListener {
 	private void actionDrawPoint() {
 		myDraw.setDraw(1);
 		setDrawResultOrStep(false);
+		myDraw.setDrawsolution(false);
 		combosolution.removeAllItems();
 	}
 
 	private void actionDrawLine() {
 		myDraw.setDraw(2);
 		setDrawResultOrStep(false);
+		myDraw.setDrawsolution(false);
 		combosolution.removeAllItems();
 	}
 
@@ -876,6 +884,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
 	private void runAll() {
 		if (checkRun()) {
+			myDraw.setDrawsolution(false);
 			resetDataDijkstra();
 			setBeginEndPoint();
 			dijkstra.dijkstra();
@@ -895,6 +904,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
 	private void runStep() {
 		if (checkRun()) {
+			myDraw.setDrawsolution(false);
 			setBeginEndPoint();
 			dijkstra.dijkstraStep(++step);
 			loadLog(true);
