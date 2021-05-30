@@ -48,7 +48,7 @@ public class MainSceneController implements Initializable {
         popup.show();
     }
 
-    public void open(MouseEvent event) {
+    public void open(MouseEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll( new FileChooser.ExtensionFilter("Text Files", "*txt"),
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
@@ -56,6 +56,7 @@ public class MainSceneController implements Initializable {
                 new FileChooser.ExtensionFilter("All Files","*abc", "*.png", "*.jpg", "*.gif", "*.txt")
         );
         File file = fileChooser.showOpenDialog(stage);
+        toDraw(event);
     }
 
     @FXML

@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 public class Vertex extends Button {
     private int ID;
     private Button shape;
-    private ArrayList<Vertex> adjacentVertex;
+    private ArrayList<Vertex> adjacentVertices;
 
     //constructor
     public Vertex(int n) {
@@ -21,7 +21,7 @@ public class Vertex extends Button {
     public Vertex(int n, Button shape) {
         this.ID = n;
         this.shape = shape;
-        adjacentVertex = new ArrayList<>();
+        adjacentVertices = new ArrayList<>();
     }
 
 
@@ -35,7 +35,7 @@ public class Vertex extends Button {
         shape.setPrefHeight(50);
         shape.setText(String.valueOf(n));
         shape.getStyleClass().add("vertex");
-        adjacentVertex = new ArrayList<>();
+        adjacentVertices = new ArrayList<>();
         return shape;
     }
 
@@ -45,16 +45,16 @@ public class Vertex extends Button {
     void setID(int iD) {
         this.ID = iD;
     }
-    ArrayList<Vertex> getAdjacentVertex() {
-        return adjacentVertex;
+    ArrayList<Vertex> getAdjacentVertices() {
+        return adjacentVertices;
     }
 
     void setAdjacentNode(ArrayList<Vertex> adjacentVertex) {
-        this.adjacentVertex = adjacentVertex;
+        this.adjacentVertices = adjacentVertex;
     }
 
     void addAdjacentVertex(Vertex v) {
-        adjacentVertex.add(v);
+        adjacentVertices.add(v);
     }
     public Button GetShape() {
         return shape;

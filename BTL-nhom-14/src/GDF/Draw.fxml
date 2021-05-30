@@ -6,6 +6,7 @@
 <?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -284,7 +285,7 @@
                           <menus>
                             <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="File">
                               <items>
-                                    <MenuItem mnemonicParsing="false" text="New" />
+                                    <MenuItem mnemonicParsing="false" onAction="#delete" text="New" />
                                     <MenuItem fx:id="menu_open" mnemonicParsing="false" onAction="#open" text="Open" />
                                 <MenuItem mnemonicParsing="false" onAction="#toPNG" text="Save as PNG" />
                                     <MenuItem mnemonicParsing="false" onAction="#toGPH" text="Save as GPH" />
@@ -370,11 +371,11 @@
                         <Insets bottom="5.0" left="20.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea fx:id="path" editable="false" prefHeight="137.0" prefWidth="439.0">
+                  <ListView fx:id="pathList" onMouseClicked="#showPath" prefHeight="200.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" />
                      </VBox.margin>
-                  </TextArea>
+                  </ListView>
                </children>
             </VBox>
          </children></HBox>

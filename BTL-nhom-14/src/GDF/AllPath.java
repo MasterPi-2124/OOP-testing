@@ -13,7 +13,7 @@ public class AllPath {
     private ArrayList<Integer> tempPath; // luu tam thoi
     private ArrayList<ArrayList<Integer>> Path = new ArrayList<>(); //luu tat ca duong di
     private int startVertex, endVertex;
-    private StringBuffer path = new StringBuffer("");
+    private ArrayList<String> path = new ArrayList<>();
 
     public ArrayList<ArrayList<Integer>> getPath() {
         return Path;
@@ -35,21 +35,25 @@ public class AllPath {
     public void PathFound() {
         if(tempPath.size() > 1 && tempPath.get(tempPath.size() - 1) == endVertex) {
             Path.add(tempPath);
-            path.append("[").append(Path.size()).append("]: ");
+
+            StringBuffer temppath = new StringBuffer();
+            //temppath.append("[").append(Path.size()).append("]: ");
             for (Integer i : tempPath) {
-                path.append(i).append(" -> ");
+                temppath.append(i).append(" -> ");
             }
-            path.delete(path.length() - 4, path.length());
-            path.append("\n");
+            temppath.delete(temppath.length() - 4, temppath.length());
+            path.add(String.valueOf(temppath));
         }
     }
 
-    public String getPathLog() {
-        return String.valueOf(path);
+
+
+    public ArrayList<String> getPathLog() {
+        return path;
     }
 
-    public void setPathLog(String str) {
-        this.path = new StringBuffer(str);
+    public void setPathLog() {
+        this.path = new ArrayList<>();
     }
 
     // duyet ta ca duong di
@@ -57,10 +61,10 @@ public class AllPath {
         if (tempPath.get(soCanh-1) == endVertex || soCanh > graph.getEdgeList().size()) {
             PathFound();
         } else {
-            if (graph.getVertex(tempPath.get(soCanh-1)).getAdjacentVertex().size() == 0) {
+            if (graph.getVertex(tempPath.get(soCanh-1)).getAdjacentVertices().size() == 0) {
                 PathFound();
             } else {
-                for (Vertex v : graph.getVertex(tempPath.get(soCanh - 1)).getAdjacentVertex()) {
+                for (Vertex v : graph.getVertex(tempPath.get(soCanh - 1)).getAdjacentVertices()) {
                     if (visited[v.getID()] == false) {
                         visited[v.getID()] = true;
                         tempPath.add(v.getID());

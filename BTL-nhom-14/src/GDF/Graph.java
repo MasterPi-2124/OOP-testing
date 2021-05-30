@@ -80,7 +80,7 @@ public class Graph {
     }
 
     public ArrayList<Vertex> getAdjacentVertices(int i){
-        return vertexList.get(i).getAdjacentVertex();
+        return vertexList.get(i).getAdjacentVertices();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Graph {
         String str = "";
         for(int i=0; i<vertexList.size(); i++) {
             str += i + ": [";
-            for(Vertex v: vertexList.get(i).getAdjacentVertex()) {
+            for(Vertex v: vertexList.get(i).getAdjacentVertices()) {
                 str += v.getID() + "  ";
             }
             str += "]\n";

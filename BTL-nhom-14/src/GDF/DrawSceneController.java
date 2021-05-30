@@ -69,10 +69,10 @@ public class DrawSceneController extends OutputStream implements Initializable {
     private TextArea log;
 
     @FXML
-    private TextArea path;
+    private HBox delete;
 
     @FXML
-    private HBox delete;
+    private ListView<String> pathList;
 
     private AllPath allPath;
     private Graph directedGraph,
@@ -86,17 +86,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                     isPaused = false;
     int id = 1;
     Vertex v1,v2;
-    public File export() throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        File file = new File("dsdf.png");
-        WritableImage writableImage = new WritableImage((int)displayPane.getWidth() + 20,
-                (int)displayPane.getHeight() + 20);
-        displayPane.snapshot(null, writableImage);
-        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-        //Write the snapshot to the chosen file
-        ImageIO.write(renderedImage, "png", file);
-        return file;
-    }
+    String path;
 
     //Configuration for Menu bar
     public void toMain(MouseEvent event) throws IOException {
@@ -130,6 +120,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         Scanner scan = new Scanner(new File(filename));
         int n = scan.nextInt();
 
+        delete();
         directedGraph = new Graph(displayPane);
 
         for(int i = 0;i < n; i++) {
@@ -146,17 +137,22 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     public void toPNG() throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Files");
-        fileChooser.setInitialFileName("graph-" + LocalTime.now().format(DateTimeFormatter.ofPattern("hh-mm-ss")));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        if (directedGraph != null) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Files");
+            fileChooser.setInitialFileName("graph-" + LocalTime.now().format(DateTimeFormatter.ofPattern("hh-mm-ss")) + ".png");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
 
-        File file = fileChooser.showSaveDialog(stage);
-        WritableImage writableImage = new WritableImage((int)displayPane.getWidth(), (int)displayPane.getHeight());
-        displayPane.snapshot(null, writableImage);
-        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-        ImageIO.write(renderedImage, "png", file);
-        System.out.println("Exported to PNG successfully!\nDirectory: " + file.getAbsolutePath());
+            File file = fileChooser.showSaveDialog(stage);
+
+            WritableImage writableImage = new WritableImage((int) displayPane.getWidth(), (int) displayPane.getHeight());
+            displayPane.snapshot(null, writableImage);
+            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+            ImageIO.write(renderedImage, "png", file);
+            System.out.println("Exported to PNG successfully!\nDirectory: " + file.getAbsolutePath());
+        } else {
+            System.out.println("Ngu loz a, ko co gi ma doi di xuat anh???");
+        }
     }
 
     public void toGPH() throws IOException {
@@ -240,7 +236,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         }
     }
 
-    public void delete(MouseEvent event) {
+    public void delete() {
         while(displayPane.getChildren().size() != 0)
             displayPane.getChildren().remove(0);
         directedGraph = null;
@@ -251,7 +247,9 @@ public class DrawSceneController extends OutputStream implements Initializable {
         v1 = null;
         id = 1;
         v2 = null;
-        path.clear();
+        while (pathList.getItems().size() > 0) {
+            pathList.getItems().remove(0);
+        }
         System.out.println("Deleted. Starting new Scene....\n");
     }
 
@@ -271,7 +269,6 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     // Algorithm controller
-
     public void setOption() {
         Algorithm.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -284,6 +281,26 @@ public class DrawSceneController extends OutputStream implements Initializable {
                 }
             }
         });
+    }
+
+    public void showPath() {
+        directedGraph.resetVerticesColor();
+        pathList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        pathList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                path = newValue;
+            }
+        });
+        System.out.println(path);
+        String[] temp = path.split(" -> ");
+        if(path != null) {
+            for (int i = 1; i < temp.length - 1; i++) {
+                directedGraph.getVertex(Integer.parseInt(temp[i])).GetShape().setStyle("-fx-background-color: #ff6ebe; -fx-text-fill: white;");
+            }
+            directedGraph.getVertex(Integer.parseInt(temp[0])).GetShape().setStyle("-fx-background-color: #63ff8e; -fx-text-fill: white;");
+            directedGraph.getVertex(Integer.parseInt(temp[temp.length - 1])).GetShape().setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        }
     }
 
     public void run() {
@@ -351,14 +368,19 @@ public class DrawSceneController extends OutputStream implements Initializable {
                 run.setSelected(false);
                 if (startPoint.getValue() != null && endPoint.getValue() != null) {
                     System.out.println("Paths from point " + startPoint.getValue() + " to point " + endPoint.getValue() + ":");
-                    allPath.setPathLog("");
+                    allPath.setPathLog();
+                    while (pathList.getItems().size() > 0) {
+                        pathList.getItems().remove(0);
+                    }
                     allPath.setPath(new ArrayList<>());
                     allPath.setStartVertex(startPoint.getValue());
                     allPath.setEndVertex(endPoint.getValue());
                     allPath.initialize();
                     allPath.TRY(1);
-                    if (allPath.getPathLog().length() == 0) allPath.setPathLog("No paths are found.\n");
-                    path.setText(allPath.getPathLog());
+                    if (allPath.getPathLog().size() == 0) allPath.getPathLog().add("No paths are found.");
+                    for (String i : allPath.getPathLog()) {
+                        pathList.getItems().add(i);
+                    }
                     System.out.println("Done.");
                 } else {
                     System.out.println("Can not find paths because no point is chosen.");
@@ -378,15 +400,20 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     public void stop(MouseEvent event) {
-        algo.stop();
-        isRunning = false;
-        run.setSelected(false);
-        Algorithm.setDisable(false);
-        startPoint.setDisable(false);
-        addEdge.setDisable(false);
-        addVertex.setDisable(false);
-        delete.setDisable(false);
-        Movable.setDisable(false);
+        if (isRunning) {
+            algo.stop();
+            isRunning = false;
+            run.setSelected(false);
+            Algorithm.setDisable(false);
+            startPoint.setDisable(false);
+            addEdge.setDisable(false);
+            addVertex.setDisable(false);
+            delete.setDisable(false);
+            Movable.setDisable(false);
+        } else {
+            System.out.println("con chua chay thi pause kieu loz gi?");
+        }
+
     }
 
     // Mouse Listener
@@ -440,7 +467,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                 v2 = v;
                 System.out.println("Point " + v2.getID() + " is clicked.");
                 if (v2 != v1) {
-                    for (Vertex i : v1.getAdjacentVertex()) {
+                    for (Vertex i : v1.getAdjacentVertices()) {
                         if (i.getID() == v2.getID()) {
                             check = false;
                             break;

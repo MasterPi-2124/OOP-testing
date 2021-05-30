@@ -190,7 +190,7 @@
                                     <Image url="@../icon/Draw_Light.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="15.0" layoutY="127.0" text="Draw new Graph" textAlignment="CENTER" textFill="WHITE">
+                              <Label layoutX="15.0" layoutY="127.0" text="Draw" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Regular" size="20.0" />
                                  </font>
@@ -221,7 +221,7 @@
                                     <Image url="@../icon/Open_Light.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="22.0" layoutY="130.0" text="Open from files" textAlignment="CENTER" textFill="WHITE">
+                              <Label layoutX="22.0" layoutY="130.0" text="New" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Regular" size="20.0" />
                                  </font>
@@ -249,7 +249,7 @@
                                     <Image url="@../icon/Lucky_Light.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="22.0" layoutY="130.0" text="I'm feeling lucky" textAlignment="CENTER" textFill="WHITE">
+                              <Label layoutX="22.0" layoutY="130.0" text="Transversion" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Regular" size="20.0" />
                                  </font>
