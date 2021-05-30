@@ -53,7 +53,7 @@ public class Graph {
         line.setEnd(v.getID());
         edgeList.add(line);
         u.addAdjacentVertex(v);
-
+        System.out.println("Edge from " + u.getID() + " to " + v.getID() + " is created!");
         displayPane.getChildren().add(line);
     }
 

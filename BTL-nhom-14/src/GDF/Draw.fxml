@@ -38,7 +38,7 @@
          <children>
             <AnchorPane prefHeight="382.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Pane fx:id="displayPane" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#onGraphPressed" prefHeight="623.0" prefWidth="1181.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane fx:id="displayPane" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#onGraphPressed" prefHeight="623.0" prefWidth="1181.0" styleClass="main-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <VBox alignment="CENTER" layoutX="13.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="54.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="54.0" styleClass="popup-bar">
@@ -286,7 +286,8 @@
                               <items>
                                     <MenuItem mnemonicParsing="false" text="New" />
                                     <MenuItem fx:id="menu_open" mnemonicParsing="false" onAction="#open" text="Open" />
-                                <MenuItem mnemonicParsing="false" onAction="#toSave" text="Save as ..." />
+                                <MenuItem mnemonicParsing="false" onAction="#toPNG" text="Save as PNG" />
+                                    <MenuItem mnemonicParsing="false" onAction="#toGPH" text="Save as GPH" />
                                     <MenuItem mnemonicParsing="false" text="Quit" />
                               </items>
                             </Menu>

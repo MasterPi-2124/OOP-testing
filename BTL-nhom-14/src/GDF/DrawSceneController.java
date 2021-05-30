@@ -1,7 +1,10 @@
 package GDF;
 
+import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -9,6 +12,7 @@ import java.util.Scanner;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -24,6 +29,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawSceneController extends OutputStream implements Initializable {
@@ -69,7 +75,8 @@ public class DrawSceneController extends OutputStream implements Initializable {
     private HBox delete;
 
     private AllPath allPath;
-    private Graph graph;
+    private Graph directedGraph,
+                  undirectedGraph;
     private DFS_BFS algo;
     private boolean isHidden = false,
                     canAddVertex = false,
@@ -79,6 +86,17 @@ public class DrawSceneController extends OutputStream implements Initializable {
                     isPaused = false;
     int id = 1;
     Vertex v1,v2;
+    public File export() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        File file = new File("dsdf.png");
+        WritableImage writableImage = new WritableImage((int)displayPane.getWidth() + 20,
+                (int)displayPane.getHeight() + 20);
+        displayPane.snapshot(null, writableImage);
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        //Write the snapshot to the chosen file
+        ImageIO.write(renderedImage, "png", file);
+        return file;
+    }
 
     //Configuration for Menu bar
     public void toMain(MouseEvent event) throws IOException {
@@ -94,25 +112,25 @@ public class DrawSceneController extends OutputStream implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Files");
         fileChooser.getExtensionFilters().addAll( new FileChooser.ExtensionFilter("Text Files", "*txt"),
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
                 new FileChooser.ExtensionFilter("Graph Path Finder Files", "*.gph"),
-                new FileChooser.ExtensionFilter("All Files","*gph", "*.png", "*.jpg", "*.gif", "*.txt")
+                new FileChooser.ExtensionFilter("All Files","*gph", "*.txt")
         );
         try {
             File file = fileChooser.showOpenDialog(stage);
             System.out.println("Opening " + file.getName() + " ...");
-            load(file.getName());
+            load(file.getAbsolutePath());
 
         } catch (Exception e) {
             System.out.println("The file can not be opened due to errors.");
+            e.printStackTrace();
         }
     }
 
-    void load(String filename) throws FileNotFoundException {
+    public void load(String filename) throws FileNotFoundException {
         Scanner scan = new Scanner(new File(filename));
         int n = scan.nextInt();
 
-        graph = new Graph(displayPane);
+        directedGraph = new Graph(displayPane);
 
         for(int i = 0;i < n; i++) {
             double x = scan.nextDouble();
@@ -123,20 +141,32 @@ public class DrawSceneController extends OutputStream implements Initializable {
         for(int i = 0; i < m; i++) {
             int u = scan.nextInt();
             int v = scan.nextInt();
-            graph.createEdge(u,v);
+            directedGraph.createEdge(u,v);
         }
     }
 
-    public void toSave() throws IOException {
-        if (graph.numberVertex() > 0) {
-            Stage popup_stage = new Stage();
-            popup_stage.initModality(Modality.APPLICATION_MODAL);
-            popup_stage.setTitle("Save as");
-            Parent root = FXMLLoader.load(getClass().getResource("SaveAs.fxml"));
-            Scene scene = new Scene(root, 800, 500);
-            popup_stage.setScene(scene);
-            popup_stage.show();
-        }
+    public void toPNG() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Files");
+        fileChooser.setInitialFileName("graph-" + LocalTime.now().format(DateTimeFormatter.ofPattern("hh-mm-ss")));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+        File file = fileChooser.showSaveDialog(stage);
+        WritableImage writableImage = new WritableImage((int)displayPane.getWidth(), (int)displayPane.getHeight());
+        displayPane.snapshot(null, writableImage);
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        ImageIO.write(renderedImage, "png", file);
+        System.out.println("Exported to PNG successfully!\nDirectory: " + file.getAbsolutePath());
+    }
+
+    public void toGPH() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Files");
+        fileChooser.setInitialFileName("graph-" + LocalTime.now().format(DateTimeFormatter.ofPattern("hh-mm-ss")));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Graph Path Finder Files", "*.gph"));
+
+        File file = fileChooser.showSaveDialog(stage);
+        // CODE HERE
     }
 
     public void toHelpAndAbout() throws IOException {
@@ -213,7 +243,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
     public void delete(MouseEvent event) {
         while(displayPane.getChildren().size() != 0)
             displayPane.getChildren().remove(0);
-        graph = null;
+        directedGraph = null;
         while (startPoint.getItems().size() > 0) {
             startPoint.getItems().remove(0);
             endPoint.getItems().remove(0);
@@ -228,12 +258,12 @@ public class DrawSceneController extends OutputStream implements Initializable {
     // Configuration for right bar
     public void toUndirected() {
         if (isUndirected.isSelected()) {
-            for (Edge e : graph.getEdgeList()) {
+            for (Edge e : directedGraph.getEdgeList()) {
                 e.setHeadVisible(false);
             }
             System.out.println("Changed to Directed Graph.");
         } else {
-            for (Edge e : graph.getEdgeList()) {
+            for (Edge e : directedGraph.getEdgeList()) {
                 e.setHeadVisible(true);
             }
             System.out.println("Changed to Undirected Graph.");
@@ -338,7 +368,13 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     public void runStep() {
-
+        if (isHidden) {
+            displayPane.setOpacity(1);
+            isHidden = false;
+        } else {
+            displayPane.setOpacity(0);
+            isHidden = true;
+        }
     }
 
     public void stop(MouseEvent event) {
@@ -356,7 +392,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
     // Mouse Listener
     public void onGraphPressed(MouseEvent event) {
         if (canAddVertex && event.isPrimaryButtonDown()) {
-            if (graph == null) graph = new Graph(displayPane);
+            if (directedGraph == null) directedGraph = new Graph(displayPane);
             displayPane.getChildren().add(addVertex(event));
         } else if (event.isSecondaryButtonDown()) {
             if (v1 != null) {
@@ -367,29 +403,29 @@ public class DrawSceneController extends OutputStream implements Initializable {
     }
 
     public Node addVertex(MouseEvent event) {
-        Vertex v = new Vertex(graph.numberVertex(), event.getX(), event.getY());
-        graph.addVertex(v);
+        Vertex v = new Vertex(directedGraph.numberVertex(), event.getX(), event.getY());
+        directedGraph.addVertex(v);
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
 
         System.out.println("Point " + v.getID() + "(" + event.getX() + "; " + event.getY() + ") is created!");
         startPoint.getItems().add(v.getID());
         endPoint.getItems().add(v.getID());
-        algo = new DFS_BFS(graph);
-        allPath = new AllPath(graph);
+        algo = new DFS_BFS(directedGraph);
+        allPath = new AllPath(directedGraph);
         return v.GetShape();
     }
 
     public Node addVertex(double x, double y) {
-        Vertex v = new Vertex(graph.numberVertex(), x, y);
-        graph.addVertex(v);
+        Vertex v = new Vertex(directedGraph.numberVertex(), x, y);
+        directedGraph.addVertex(v);
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
 
         System.out.println("Point " + v.getID() + "(" + x + "; " + y + ") is created!");
         startPoint.getItems().add(v.getID());
-        algo = new DFS_BFS(graph);
-        allPath = new AllPath(graph);
+        algo = new DFS_BFS(directedGraph);
+        allPath = new AllPath(directedGraph);
         return v.GetShape();
     }
 
@@ -411,11 +447,10 @@ public class DrawSceneController extends OutputStream implements Initializable {
                         }
                     }
                     if (check) {
-                        graph.createEdge(v1, v2);
+                        directedGraph.createEdge(v1, v2);
                         id = 1;
-                        System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is created!");
-                        algo = new DFS_BFS(graph);
-                        allPath = new AllPath(graph);
+                        algo = new DFS_BFS(directedGraph);
+                        allPath = new AllPath(directedGraph);
                     } else {
                         System.out.println("Edge from " + v1.getID() + " to " + v2.getID() + " is already created!");
                     }
