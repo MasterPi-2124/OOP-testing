@@ -1,4 +1,4 @@
-package nhom14;
+package GDF;
 
 import java.awt.BorderLayout;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package nhom14;
+package GDF;
 
 import java.io.*;
 import java.net.URL;
@@ -137,7 +137,16 @@ public class DrawSceneController extends OutputStream implements Initializable {
             popup_stage.setScene(scene);
             popup_stage.show();
         }
+    }
 
+    public void toHelpAndAbout() throws IOException {
+        Stage popup_stage = new Stage();
+        popup_stage.initModality(Modality.APPLICATION_MODAL);
+        popup_stage.setTitle("Save as");
+        Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));
+        Scene scene = new Scene(root, 1000, 600);
+        popup_stage.setScene(scene);
+        popup_stage.show();
     }
 
     //Configuration for left bar
@@ -189,7 +198,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         }
     }
 
-    public void hidePropertyBar(MouseEvent event) {
+    public void hidePropertyBar() {
         if (isHidden) {
             property_bar.setOpacity(1.0);
             isHidden = false;
@@ -209,6 +218,10 @@ public class DrawSceneController extends OutputStream implements Initializable {
             startPoint.getItems().remove(0);
             endPoint.getItems().remove(0);
         }
+        v1 = null;
+        id = 1;
+        v2 = null;
+        path.clear();
         System.out.println("Deleted. Starting new Scene....\n");
     }
 
@@ -345,13 +358,12 @@ public class DrawSceneController extends OutputStream implements Initializable {
         if (canAddVertex && event.isPrimaryButtonDown()) {
             if (graph == null) graph = new Graph(displayPane);
             displayPane.getChildren().add(addVertex(event));
+        } else if (event.isSecondaryButtonDown()) {
+            if (v1 != null) {
+                v1 = null;
+                id = 1;
+            }
         }
-        displayPane.setOnMouseDragged(e -> onPaneDragged(e));
-    }
-
-    public void onPaneDragged(MouseEvent event) {
-        displayPane.setLayoutX(displayPane.getLayoutX() + event.getX() + displayPane.getTranslateX());
-        displayPane.setLayoutY(displayPane.getLayoutY() + event.getY() + displayPane.getTranslateY());
     }
 
     public Node addVertex(MouseEvent event) {
@@ -386,9 +398,11 @@ public class DrawSceneController extends OutputStream implements Initializable {
             if (id == 1) {
                 v1 = v;
                 id = 2;
+                System.out.println("Point " + v1.getID() + " is clicked.");
             } else if (id == 2) {
                 boolean check = true;
                 v2 = v;
+                System.out.println("Point " + v2.getID() + " is clicked.");
                 if (v2 != v1) {
                     for (Vertex i : v1.getAdjacentVertex()) {
                         if (i.getID() == v2.getID()) {

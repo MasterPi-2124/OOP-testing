@@ -1,4 +1,4 @@
-package nhom14;
+package GDF;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainSceneController implements Initializable {
@@ -21,6 +22,8 @@ public class MainSceneController implements Initializable {
 
     boolean isExpanded = false;
     private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -33,6 +36,16 @@ public class MainSceneController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void toAboutandHelp(MouseEvent event) throws IOException {
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setTitle("Save as");
+        Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));
+        Scene scene = new Scene(root, 1000, 600);
+        popup.setScene(scene);
+        popup.show();
     }
 
     public void open(MouseEvent event) {

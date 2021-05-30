@@ -1,5 +1,5 @@
 .parent {
-    -fx-background-color: lightgray;
+    -fx-background-color: gray;
 }
 
 .main-pane {
@@ -59,13 +59,15 @@
     -fx-background-color: #353652;
 }
 
-.toggle-group {
-    -fx-background-color: #282b3c;
+.pane {
+    -fx-pannable: true;
 }
 
 .toggle-button {
     -fx-background-color: #282b3c;
+    -fx-pref-width: 50;
     -fx-background-radius: 10 10 10 10;
+    -fx-effect: null;
 }
 .toggle-button:hover {
     -fx-background-color: #353652;
@@ -156,4 +158,70 @@
 
 .arrow {
     -fx-background-color: #4c4d70;
+}
+/*
+.text-area-about-scene {
+    -fx-background-color: #282b3c;
+    -fx-border-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 7 7 7 7;
+    -fx-background-radius: 7 7 7 7;
+    -fx-text-fill: white;
+    -fx-text-alignment: 10px 10px 10px 10px;
+    -fx-padding: 14 20 14 20;
+}
+
+.label-scene {
+    -fx-background-color: #496FA0;
+    -fx-border-radius: 7 7 7 7;
+    -fx-background-radius:  7 7 7 7;
+}
+.label-scene-text {
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+}
+.content-text-about-scene {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+}
+*/
+
+.tab-pane:top .tab-header-area .control-buttons-tab {
+    visibility: false;
+    -fx-opacity: 0;
+}
+
+.tab-pane:top .tab-header-area .tab-header-background {
+    -fx-background-color: #282b3c;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top {
+    -fx-background-color: transparent;
+    -fx-pref-width: 500;
+    -fx-pref-height: 50;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top:hover {
+    -fx-background-color: #353652;
+}
+
+
+.tab-pane:top .tab-header-area .headers-region .tab:top .tab-container .tab-label{
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-font-family: Lato;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top .tab-container .focus-indicator {
+    -fx-background-color: transparent;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top {
+    -fx-background-color: #353652;
+    -fx-region-border: none;
+}
+
+.tab-content-area {
+    -fx-background-color: #222534;
 }

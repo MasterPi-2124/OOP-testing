@@ -25,7 +25,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nhom14.DrawSceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GDF.DrawSceneController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="main-pane" stylesheets="@design.css" VBox.vgrow="ALWAYS">
          <effect>
@@ -127,9 +127,9 @@
                                     </ChoiceBox>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="50.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+                              <HBox prefHeight="50.0" prefWidth="15.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" text="From" textAlignment="CENTER" textFill="WHITE">
+                                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="58.0" text="From" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="Lato Thin" size="18.0" />
                                        </font>
@@ -140,14 +140,14 @@
                                           <Insets left="5.0" right="5.0" />
                                        </padding>
                                     </Label>
-                                    <ChoiceBox fx:id="startPoint" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
+                                    <ChoiceBox fx:id="startPoint" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="66.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ChoiceBox>
                                  </children>
                               </HBox>
-                              <HBox layoutX="170.0" layoutY="10.0" prefHeight="50.0" prefWidth="71.0">
+                              <HBox layoutX="170.0" layoutY="10.0" prefHeight="50.0" prefWidth="80.0">
                                  <children>
                                     <Label alignment="CENTER" text="To" textAlignment="CENTER" textFill="WHITE">
                                        <font>
@@ -160,14 +160,14 @@
                                           <Insets left="5.0" right="5.0" />
                                        </padding>
                                     </Label>
-                                    <ChoiceBox fx:id="endPoint" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="41.0" HBox.hgrow="ALWAYS">
+                                    <ChoiceBox fx:id="endPoint" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="49.0" HBox.hgrow="ALWAYS">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ChoiceBox>
                                  </children>
                               </HBox>
-                                <ToggleButton fx:id="run" maxHeight="50.0" maxWidth="80.0" minHeight="50.0" minWidth="80.0" onAction="#run" prefHeight="50.0" prefWidth="80.0" HBox.hgrow="ALWAYS">
+                                <ToggleButton fx:id="run" maxHeight="50.0" maxWidth="75.0" minHeight="50.0" minWidth="75.0" onAction="#run" prefHeight="50.0" prefWidth="75.0" HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -301,7 +301,7 @@
                               <items>
                                 <MenuItem mnemonicParsing="false" text="Zoom In" />
                                     <MenuItem mnemonicParsing="false" text="Zoom Out" />
-                                    <CheckMenuItem mnemonicParsing="false" text="Property" />
+                                    <CheckMenuItem mnemonicParsing="false" onAction="#hidePropertyBar" selected="true" text="Property" />
                                     <CheckMenuItem mnemonicParsing="false" text="Log" />
                               </items>
                             </Menu>
@@ -313,7 +313,7 @@
                               </Menu>
                               <Menu mnemonicParsing="false" style="-fx-background-color: #282b3c;" text="Help">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="About" />
+                                    <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#toHelpAndAbout" text="About" />
                                  </items>
                               </Menu>
                           </menus>
