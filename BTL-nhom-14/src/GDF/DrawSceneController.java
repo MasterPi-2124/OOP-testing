@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -57,11 +58,8 @@ public class DrawSceneController extends OutputStream implements Initializable {
     private ChoiceBox<String> Algorithm;
 
     @FXML
-    private TableView<Integer> adjacentMatrix;
-
-    @FXML
-    private TableColumn<Integer, Integer> vertexColumn;
-
+    private GridPane AdjacentMatrix;
+    
     @FXML
     private TextArea log;
 
@@ -84,7 +82,38 @@ public class DrawSceneController extends OutputStream implements Initializable {
     int id = 1;
     Vertex v1,v2;
     String path;
-
+    
+    //update AdjacentMatrix
+    public void updateAdjacentMatrix() {
+    	AdjacentMatrix.getChildren().clear();
+    	AdjacentMatrix.setHgap(graph.numberVertex()+1);
+    	AdjacentMatrix.setVgap(graph.numberVertex()+1);
+    	ArrayList<Button> btn = new ArrayList<>();
+    	ArrayList<Button> Btn = new ArrayList<>();
+    	for(int i = 0; i<graph.numberVertex(); i++) {
+    		Integer I = i;
+    		String tempS = I.toString();
+    		btn.add(new Button(tempS));
+    		btn.get(i).setStyle("-fx-background-color: gray");
+    		Btn.add(new Button(tempS));
+    		Btn.get(i).setStyle("-fx-background-color: gray");
+    		AdjacentMatrix.add(btn.get(i), 0, i+1);
+    		AdjacentMatrix.add(Btn.get(i), i+1, 0);
+    	}
+    	  
+    	for(int i = 0; i<graph.numberVertex(); i++) {
+    		for(int j = 0; j<graph.numberVertex(); j++) {
+    			if(graph.getVertex(i).getAdjacentVertices().contains(graph.getVertex(j))) {
+    				AdjacentMatrix.add(new Button("1"), j+1, i+1);
+    			}else if(i == j){
+    				AdjacentMatrix.add(new Button("0"), j+1, i+1);
+    			}else {
+    				AdjacentMatrix.add(new Button("-1"), j+1, i+1);
+    			}
+    		}
+    	}
+    }
+    
     //Configuration for Menu bar
     public void toMain(MouseEvent event) throws IOException {
         System.out.println("Redirecting to Main ...");
@@ -261,6 +290,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         while (pathList.getItems().size() > 0) {
             pathList.getItems().remove(0);
         }
+        AdjacentMatrix.getChildren().clear();
         System.out.println("Deleted. Starting new Scene....\n");
     }
 
@@ -456,6 +486,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         endPoint.getItems().add(v.getID());
         algo = new DFS_BFS(graph);
         allPath = new AllPath(graph);
+        updateAdjacentMatrix();
         return v.GetShape();
     }
 
@@ -470,6 +501,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         endPoint.getItems().add(v.getID());
         algo = new DFS_BFS(graph);
         allPath = new AllPath(graph);
+        updateAdjacentMatrix();
         return v.GetShape();
     }
 
@@ -492,6 +524,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
                     }
                     if (check) {
                         graph.createEdge(v1, v2);
+                        updateAdjacentMatrix();
                         id = 1;
                         algo = new DFS_BFS(graph);
                         allPath = new AllPath(graph);
