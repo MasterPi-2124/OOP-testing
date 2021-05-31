@@ -6,6 +6,7 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -16,6 +17,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -58,7 +61,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
     private ChoiceBox<String> Algorithm;
 
     @FXML
-    private GridPane AdjacentMatrix;
+    private ScrollPane AdjacentMatrix;
     
     @FXML
     private TextArea log;
@@ -84,34 +87,72 @@ public class DrawSceneController extends OutputStream implements Initializable {
     String path;
     
     //update AdjacentMatrix
+    public void formatTextField(TextField t, String s) {
+    	t.setStyle(s);
+    	t.setPrefSize(50, 50);
+    	t.setAlignment(Pos.CENTER);
+    	t.setEditable(false);
+    }
+    
     public void updateAdjacentMatrix() {
-    	AdjacentMatrix.getChildren().clear();
-    	AdjacentMatrix.setHgap(graph.numberVertex()+1);
-    	AdjacentMatrix.setVgap(graph.numberVertex()+1);
-    	ArrayList<Button> btn = new ArrayList<>();
-    	ArrayList<Button> Btn = new ArrayList<>();
+    	GridPane adjacentMatrix = new GridPane();
+    	adjacentMatrix.setPrefSize(50*graph.numberVertex() + 50,50*graph.numberVertex() + 50);
+    	ArrayList<TextField> txt = new ArrayList<>();
+    	ArrayList<TextField> TXT = new ArrayList<>();
     	for(int i = 0; i<graph.numberVertex(); i++) {
     		Integer I = i;
     		String tempS = I.toString();
-    		btn.add(new Button(tempS));
-    		btn.get(i).setStyle("-fx-background-color: gray");
-    		Btn.add(new Button(tempS));
-    		Btn.get(i).setStyle("-fx-background-color: gray");
-    		AdjacentMatrix.add(btn.get(i), 0, i+1);
-    		AdjacentMatrix.add(Btn.get(i), i+1, 0);
+    		
+    		// format
+    		txt.add(new TextField());
+    		TXT.add(new TextField());
+    		formatTextField(txt.get(i), "-fx-border-color: black; -fx-border-width: 1px ;  -fx-background-color: gray");
+    		formatTextField(TXT.get(i), "-fx-border-color: black; -fx-border-width: 1px ;  -fx-background-color: gray");
+    		txt.get(i).setText(tempS);
+    		TXT.get(i).setText(tempS);
+    		
+    		adjacentMatrix.setRowIndex(txt.get(i),0);
+    		adjacentMatrix.setColumnIndex(txt.get(i), i+1);
+    		adjacentMatrix.setRowIndex(TXT.get(i),i+1);
+    		adjacentMatrix.setColumnIndex(TXT.get(i),0);
+    		adjacentMatrix.getChildren().add(txt.get(i));
+    		adjacentMatrix.getChildren().add(TXT.get(i));
     	}
-    	  
+    	
+    	ArrayList<ArrayList<TextField>> s = new ArrayList<>();
+    	for(int i = 0; i<graph.numberVertex(); i++) {
+    		s.add(new ArrayList<>());
+    	}
+    	for(int i = 0; i<graph.numberVertex(); i++) {
+    		for(int j = 0; j<graph.numberVertex(); j++) {
+    			s.get(i).add(new TextField());
+    		}
+    	}
+    	
     	for(int i = 0; i<graph.numberVertex(); i++) {
     		for(int j = 0; j<graph.numberVertex(); j++) {
     			if(graph.getVertex(i).getAdjacentVertices().contains(graph.getVertex(j))) {
-    				AdjacentMatrix.add(new Button("1"), j+1, i+1);
+    				formatTextField(s.get(i).get(j), "-fx-border-color: black; -fx-border-width: 0.5px ;  -fx-background-color: white");
+    				s.get(i).get(j).setText("1");
+    				adjacentMatrix.setRowIndex(s.get(i).get(j),j+1);
+    	    		adjacentMatrix.setColumnIndex(s.get(i).get(j),i+1);
+    	    		adjacentMatrix.getChildren().add(s.get(i).get(j));
     			}else if(i == j){
-    				AdjacentMatrix.add(new Button("0"), j+1, i+1);
+    				s.get(i).get(j).setText("0");
+    				formatTextField(s.get(i).get(j), "-fx-border-color: black; -fx-border-width: 0.5px ;  -fx-background-color: white");
+    				adjacentMatrix.setRowIndex(s.get(i).get(j),j+1);
+    	    		adjacentMatrix.setColumnIndex(s.get(i).get(j),i+1);
+    	    		adjacentMatrix.getChildren().add(s.get(i).get(j));
     			}else {
-    				AdjacentMatrix.add(new Button("-1"), j+1, i+1);
+    				s.get(i).get(j).setText("-1");
+    				formatTextField(s.get(i).get(j), "-fx-border-color: black; -fx-border-width: 0.5px ;  -fx-background-color: white");
+    				adjacentMatrix.setRowIndex(s.get(i).get(j),j+1);
+    	    		adjacentMatrix.setColumnIndex(s.get(i).get(j),i+1);
+    	    		adjacentMatrix.getChildren().add(s.get(i).get(j));
     			}
     		}
     	}
+    	AdjacentMatrix.setContent(adjacentMatrix);
     }
     
     //Configuration for Menu bar
@@ -290,7 +331,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         while (pathList.getItems().size() > 0) {
             pathList.getItems().remove(0);
         }
-        AdjacentMatrix.getChildren().clear();
+        AdjacentMatrix.setContent(new GridPane());
         System.out.println("Deleted. Starting new Scene....\n");
     }
 
