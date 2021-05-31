@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -23,7 +22,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="parent" stylesheets="@design.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GDF.DrawSceneController">
@@ -168,7 +166,7 @@
                                     </ChoiceBox>
                                  </children>
                               </HBox>
-                                <ToggleButton fx:id="run" maxHeight="50.0" maxWidth="75.0" minHeight="50.0" minWidth="75.0" onAction="#run" prefHeight="50.0" prefWidth="75.0" HBox.hgrow="ALWAYS">
+                                <ToggleButton fx:id="run" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" onAction="#run" prefHeight="50.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -185,18 +183,6 @@
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../icon/Stop.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </HBox>
-                              <HBox fx:id="runStep" alignment="CENTER" layoutX="272.0" layoutY="10.0" onMouseClicked="#runStep" prefHeight="100.0" prefWidth="5.0" styleClass="cards" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icon/RunbyStep.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -222,27 +208,6 @@
                               <Cursor fx:constant="DEFAULT" />
                            </cursor>
                            <children>
-                              <Label text="Graph Type" textFill="WHITE">
-                                 <font>
-                                    <Font name="Lato Bold" size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <CheckBox fx:id="isUndirected" mnemonicParsing="false" onAction="#toUndirected" prefHeight="23.0" prefWidth="178.0" text="is Undirected" textFill="WHITE">
-                                 <font>
-                                    <Font name="Lato Regular" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="25.0" top="15.0" />
-                                 </VBox.margin>
-                              </CheckBox>
-                              <Line endX="100.0" opacity="0.38" startX="-120.0" stroke="#808080">
-                                 <VBox.margin>
-                                    <Insets left="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Line>
                               <Label layoutX="20.0" layoutY="65.0" text="Adjency Board" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Bold" size="20.0" />

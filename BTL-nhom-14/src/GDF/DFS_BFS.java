@@ -78,7 +78,7 @@ public class DFS_BFS {
 
     public void runDFS(int startNode){
         isRunning = true;
-        graph.resetVerticesColor();
+        graph.reset();
         stack = new Stack<>();
         visited = new boolean[graph.numberVertex()];
         graph.setDisable(true);
@@ -118,7 +118,7 @@ public class DFS_BFS {
 
     void stop() {
         graph.setDisable(false);
-        graph.resetVerticesColor();
+        graph.reset();
         visualizer.stop();
         isRunning = false;
     }

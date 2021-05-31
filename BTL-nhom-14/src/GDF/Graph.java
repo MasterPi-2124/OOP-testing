@@ -8,7 +8,7 @@ public class Graph {
     // Attributes
     private Pane displayPane;
     private ArrayList<Vertex> vertexList;
-    private ArrayList<Edge> edgeList = new ArrayList<>();
+    private ArrayList<Edge> edgeList;
 
 
     // constructor
@@ -103,9 +103,18 @@ public class Graph {
         displayPane.setDisable(status);
     }
 
-	public void resetVerticesColor() {
-		for(Vertex v: vertexList) {
-            v.GetShape().setStyle(" -fx-font-size: 15; -fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(three-pass-box, #000000, 6, 0.2, 0, 1);");
+	public void reset() {
+		for(int i = 0; i < vertexList.size(); i++) {
+            vertexList.get(i).GetShape().setStyle("    -fx-font-size: 15;\n" +
+                                  "    -fx-background-color: white;\n" +
+                                  "    -fx-background-radius: 25;\n" +
+                                  "    -fx-effect: dropshadow(three-pass-box, #000000, 6, 0.2, 0, 1);\n" +
+                                  "    -fx-opacity: 1;");
+            vertexList.get(i).GetShape().setPrefSize(50, 50);
 		}
+
+        for(int i = 0; i < edgeList.size(); i++) {
+            edgeList.get(i).setOpacity(1);
+        }
 	}
 }

@@ -24,6 +24,7 @@ public class MainSceneController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    public static String filePath = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,6 +57,7 @@ public class MainSceneController implements Initializable {
                 new FileChooser.ExtensionFilter("All Files","*abc", "*.png", "*.jpg", "*.gif", "*.txt")
         );
         File file = fileChooser.showOpenDialog(stage);
+        filePath = file.getAbsolutePath();
         toDraw(event);
     }
 

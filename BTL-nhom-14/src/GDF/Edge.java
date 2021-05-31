@@ -52,7 +52,7 @@ public class Edge extends Group {
         update();
     }
 
-    private void setUpStyleClassStructure() {
+    public void setUpStyleClassStructure() {
         line.getStyleClass().setAll("edge");
         head.getStyleClass().setAll("edge");
         head.getStyleClass().add("edge-direct");

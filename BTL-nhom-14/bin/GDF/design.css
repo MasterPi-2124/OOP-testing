@@ -94,6 +94,7 @@
     -fx-background-color: white;
     -fx-background-radius: 25;
     -fx-effect: dropshadow(three-pass-box, #000000, 6, 0.2, 0, 1);
+    -fx-opacity: 1;
 }
 
 .vertex:hover {
@@ -103,6 +104,7 @@
 .edge {
     -fx-stroke: yellow;
     -fx-stroke-width: 3;
+    -fx-opacity: 1;
 }
 
 .text-area {
