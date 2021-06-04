@@ -76,6 +76,10 @@ public class Graph {
     public void addVertex(Vertex v) {
         vertexList.add(v);
     }
+    
+    public void removeVertex(Vertex v) {
+		vertexList.remove(v);
+	}
 
     public void addVertex(double x, double y) {
         vertexList.add(new Vertex(numberVertex(), x, y));

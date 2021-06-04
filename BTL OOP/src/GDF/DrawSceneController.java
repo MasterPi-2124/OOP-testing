@@ -475,6 +475,39 @@ public class DrawSceneController extends OutputStream implements Initializable {
             		graph.getVertexList().get(i).GetShape().setLayoutY(y1 + (y2 - y1) * (i - left) / (s / 3) );
     			}
     		}
+		} else {
+			double phi = 360 / s;
+			for(int i = 0; i < graph.getVertexList().size();i ++) {
+				if(i * phi <= 90) {
+					System.out.println("i * phi = " + i * phi);
+					System.out.println(200 * Math.sin(i * phi / 180 * Math.PI) + 650);
+					System.out.println(- 200 * Math.cos(i * phi / 180 * Math.PI) + 300);
+					System.out.println();
+	        		graph.getVertexList().get(i).GetShape().setLayoutX(200 * Math.sin(i * phi / 180 * Math.PI) + 650);
+	        		graph.getVertexList().get(i).GetShape().setLayoutY(- 200 * Math.cos(i * phi / 180 * Math.PI) + 300);
+				} if(phi * i > 90 && phi * i <= 180) {
+					System.out.println("i * phi = " + i * phi);
+					System.out.println(200 * Math.sin((180 - i * phi) / 180 * Math.PI) + 650);
+					System.out.println(200 * Math.cos((180 - i * phi) / 180 * Math.PI) + 300);
+					System.out.println();
+	        		graph.getVertexList().get(i).GetShape().setLayoutX(200 * Math.sin((180 - i * phi) / 180 * Math.PI) + 650);
+	        		graph.getVertexList().get(i).GetShape().setLayoutY(200 * Math.cos((180 - i * phi) / 180 * Math.PI) + 300);
+				} if(phi * i > 180 && phi * i <= 270) {
+					System.out.println("i * phi = " + i * phi);
+					System.out.println(- 200 * Math.sin(- (i * phi - 180)/ 180 * Math.PI) + 650);
+					System.out.println(200 * Math.cos((i * phi - 180) / 180 * Math.PI) + 300);
+					System.out.println();
+	        		graph.getVertexList().get(i).GetShape().setLayoutX(- 200 * Math.sin((i * phi - 180)/ 180 * Math.PI) + 650);
+	        		graph.getVertexList().get(i).GetShape().setLayoutY(200 * Math.cos((i * phi - 180) / 180 * Math.PI) + 300);
+				} if(phi * i > 270 && phi * i <= 360) {
+					System.out.println("i * phi = " + i * phi);
+					System.out.println(- 200 * Math.sin((360 - i * phi) / 180 * Math.PI) + 650);
+					System.out.println(- 200 * Math.cos((360 - i * phi) / 180 * Math.PI) + 300);
+					System.out.println();
+	        		graph.getVertexList().get(i).GetShape().setLayoutX(- 200 * Math.sin((360 - i * phi) / 180 * Math.PI) + 650);
+	        		graph.getVertexList().get(i).GetShape().setLayoutY(- 200 * Math.cos((360 - i * phi) / 180 * Math.PI) + 300);
+				}
+			}
 		}
     }
 
