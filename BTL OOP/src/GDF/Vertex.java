@@ -59,4 +59,7 @@ public class Vertex extends Button {
     public Button GetShape() {
         return shape;
     }
+    public void setShape(int n) {
+        shape.setText(String.valueOf(n));
+	}
 }

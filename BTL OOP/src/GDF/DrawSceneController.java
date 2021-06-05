@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -130,6 +131,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
             int v = scan.nextInt();
             graph.createEdge(u,v);
         }
+        updateAdjacentMatrix();
         System.out.println("Opened " + filename + " successfully!");
     }
 
@@ -677,6 +679,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         graph.addVertex(v);
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
+        v.GetShape().setOnMousePressed(e -> onVertexRightClicked(e, v));
 
         System.out.println("Point " + v.getID() + "(" + event.getX() + "; " + event.getY() + ") is created!");
         startPoint.getItems().add(v.getID());
@@ -692,6 +695,7 @@ public class DrawSceneController extends OutputStream implements Initializable {
         graph.addVertex(v);
         v.GetShape().setOnMouseDragged(e -> onVertexDragged(e, v));
         v.GetShape().setOnMouseClicked(e -> onVertexClicked(e, v));
+        v.GetShape().setOnMousePressed(e -> onVertexRightClicked(e, v));
 
         System.out.println("Point " + v.getID() + "(" + x + "; " + y + ") is created!");
         startPoint.getItems().add(v.getID());
@@ -700,6 +704,53 @@ public class DrawSceneController extends OutputStream implements Initializable {
         allPath = new AllPath(graph);
         updateAdjacentMatrix();
         return v.GetShape();
+    }
+    
+    //  right click to delete point
+    public void onVertexRightClicked(MouseEvent event, Vertex v) {   
+    	
+    	// check if user use right clicked
+    	if(canAddVertex && event.isSecondaryButtonDown()) { 
+    		
+    		// delete edge which contain vertex v
+        	for (int i = graph.getEdgeList().size() - 1; i >= 0; i--) {
+				if(graph.getEdgeList().get(i).getStart() == v.getID() || graph.getEdgeList().get(i).getEnd() == v.getID()) {
+					// delete edge from display pane and edge list
+					displayPane.getChildren().remove(graph.getEdgeList().get(i));
+					graph.getEdgeList().remove(graph.getEdgeList().get(i));
+				}
+			}
+        	
+        	for (int i = graph.getEdgeList().size() - 1; i >= 0; i--) {
+				if(graph.getEdgeList().get(i).getStart() > v.getID()) {
+					graph.getEdgeList().get(i).setStart(graph.getEdgeList().get(i).getStart() - 1);
+				} 
+				if(graph.getEdgeList().get(i).getEnd() > v.getID()) {
+					graph.getEdgeList().get(i).setEnd(graph.getEdgeList().get(i).getEnd() - 1);
+				}
+			}
+        	
+            startPoint.getItems().remove(startPoint.getItems().size() - 1);
+            for(int i = 0; i < startPoint.getItems().size(); i++) {
+            	startPoint.getItems().set(i, i);
+            }
+            endPoint.getItems().remove(endPoint.getItems().size() - 1);
+            for(int i = 0; i < endPoint.getItems().size(); i++) {
+            	endPoint.getItems().set(i, i);
+            }
+
+        	for(int i = v.getID() + 1; i < graph.getVertexList().size(); i++) {
+        		graph.getVertexList().get(i).setShape(i - 1);
+        		graph.getVertexList().get(i).setID(i - 1);
+        	}
+        	
+            displayPane.getChildren().remove(v.GetShape());
+    		graph.getVertexList().remove(v);
+    		
+            updateAdjacentMatrix();
+            algo = new DFS_BFS(graph);
+            allPath = new AllPath(graph);
+    	}
     }
 
     public void onVertexClicked(MouseEvent event, Vertex v) {

@@ -71,6 +71,21 @@ public class Graph {
         }
         createEdge(t1,t2);
     }
+    
+    void removeEdge(Vertex v) {
+    	boolean key = true;
+    	while(key) {
+    		key = false;
+        	for (Edge edge : edgeList) {
+				if(edge.getStart() == v.getID() || edge.getEnd() == v.getID()) {
+					System.out.println("edge " + edge.getStart() + " " + edge.getEnd());
+					displayPane.getChildren().remove(edge);
+					getEdgeList().remove(edge);
+					key = true;
+				}
+			}
+    	}
+    }
 
     //Create Vertex and add to Adjacent List
     public void addVertex(Vertex v) {
@@ -78,7 +93,11 @@ public class Graph {
     }
     
     public void removeVertex(Vertex v) {
-		vertexList.remove(v);
+    	for(int i = v.getID() + 1; i < getVertexList().size(); i++) {
+    		getVertexList().get(i).setShape(i - 1);
+    	}
+        displayPane.getChildren().remove(v.GetShape());
+		vertexList.remove(v.getID());
 	}
 
     public void addVertex(double x, double y) {
